@@ -1,4 +1,23 @@
 <resources>
     <string name="app_name">ConFin</string>
     <string name="app_logo">Logo de ConFin</string>
+    <string name="tipo_prompt">Seleccione tipo</string>
+    <string name="categoria_prompt">Seleccione categoría</string>
+
+    <!-- Arrays para Spinners -->
+    <string-array name="tipo_array">
+        <item>Gasto</item>
+        <item>Ingreso</item>
+    </string-array>
+
+    <string-array name="categoria_array">
+        <item>Seleccione una categoría</item>
+        <item>Alimentación</item>
+        <item>Transporte</item>
+        <item>Entretenimiento</item>
+        <item>Salud</item>
+        <item>Educación</item>
+        <item>Servicios</item>
+        <item>Otros</item>
+    </string-array>
 </resources>
