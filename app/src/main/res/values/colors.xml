@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="gray">#999999</color>
+    <color name="dark_gray">#666666</color>
+    <color name="input_box_stroke">#CCCCCC</color>
+    <color name="input_box_stroke_focused">#000000</color>
+    <color name="light_gray">#DDDDDD</color>
+</resources>
