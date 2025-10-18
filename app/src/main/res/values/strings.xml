@@ -1,6 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ConFin</string>
-    <string name="app_logo">Logo de ConFin</string>
+
+    <!-- Agregar Transacción -->
     <string name="tipo_prompt">Seleccione tipo</string>
     <string name="categoria_prompt">Seleccione categoría</string>
 
@@ -20,4 +22,58 @@
         <item>Servicios</item>
         <item>Otros</item>
     </string-array>
+
+    <!-- Vista Categorías -->
+    <string name="titulo_categorias">Categorías</string>
+    <string name="categoria_alimentacion">Alimentación</string>
+    <string name="categoria_transporte">Transporte</string>
+    <string name="categoria_entretenimiento">Entretenimiento</string>
+    <string name="categoria_ropa">Ropa</string>
+    <string name="categoria_hogar">Hogar</string>
+    <string name="categoria_salud">Salud</string>
+
+    <!-- Transacciones ejemplo -->
+    <string name="transaccion_supermercado">Supermercado</string>
+    <string name="transaccion_restaurante">Restaurante</string>
+    <string name="transaccion_cafe">Café</string>
+    <string name="fecha_15_ene">15 Ene 2025</string>
+    <string name="fecha_14_ene">14 Ene 2025</string>
+    <string name="fecha_13_ene">13 Ene 2025</string>
+    <string name="monto_45">-$45.50</string>
+    <string name="monto_28">-$28.00</string>
+    <string name="monto_4">-$4.50</string>
+
+    <!-- Bottom Navigation -->
+    <string name="nav_resumen">Resumen</string>
+    <string name="nav_gastos">Gastos</string>
+    <string name="nav_categorias">Categorías</string>
+
+    <!-- Content Descriptions -->
+    <string name="desc_alimentacion">Alimentación</string>
+    <string name="desc_transporte">Transporte</string>
+    <string name="desc_entretenimiento">Entretenimiento</string>
+    <string name="desc_ropa">Ropa</string>
+    <string name="desc_hogar">Hogar</string>
+    <string name="desc_expandir">Expandir</string>
+    <string name="desc_ver_mas">Ver más</string>
+    <string name="desc_agregar_categoria">Agregar categoría</string>
+    <string name="letra_salud">S</string>
+
+    <!-- Agregar Categoría -->
+    <string name="titulo_agregar_categoria">Agregar Categoría</string>
+    <string name="label_nombre_categoria">Nombre de la categoría</string>
+    <string name="hint_nombre_categoria">Ej. Transporte, Comida</string>
+    <string name="label_icono_representativo">Icono representativo</string>
+    <string name="label_color_categoria">Color de la categoría</string>
+    <string name="btn_cancelar">Cancelar</string>
+    <string name="btn_guardar">Guardar</string>
+    <string name="desc_volver">Volver</string>
+    <string name="desc_compras">Compras</string>
+    <string name="desc_favorito">Favorito</string>
+    <string name="desc_avion">Avión</string>
+    <string name="desc_documento">Documento</string>
+    <string name="desc_deporte">Deporte</string>
+    <string name="desc_maletin">Maletín</string>
+    <string name="desc_regalo">Regalo</string>
+    <string name="desc_mas">Más opciones</string>
 </resources>
