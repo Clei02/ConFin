@@ -5,4 +5,11 @@
     <color name="input_box_stroke">#CCCCCC</color>
     <color name="input_box_stroke_focused">#000000</color>
     <color name="light_gray">#DDDDDD</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="background_gray">#F5F5F5</color>
+    <color name="card_dark_background">#212121</color>
+    <color name="text_primary_dark">#DE000000</color> <color name="text_secondary_dark">#8A000000</color> <color name="green_income">#4CAF50</color>
+    <color name="text_primary_light">#FFFFFFFF</color>
+    <color name="text_secondary_light">#B3FFFFFF</color>
 </resources>
