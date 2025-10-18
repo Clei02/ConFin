@@ -7,7 +7,6 @@
     android:fillViewport="true"
     android:background="@android:color/white">
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
@@ -202,7 +201,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-<<<<<<< HEAD
             app:layout_constraintTop_toBottomOf="@id/btnGoogleSignIn">
 
             <TextView
@@ -223,8 +221,5 @@
 
         </LinearLayout>
 
-=======
-            app:layout_constraintTop_toBottomOf="@id/btnGoogleSignIn" />
->>>>>>> master
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
