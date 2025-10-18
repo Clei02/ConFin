@@ -1,8 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ConFin</string>
+<<<<<<< HEAD
 
     <!-- Agregar Transacción -->
+=======
+    <string name="app_logo">Logo de ConFin</string>
+
+    <!-- Strings de tu compañero (registro y dashboard) -->
+    <string name="create_account">Crea tu cuenta</string>
+    <string name="control_finances">Controla tus finanzas</string>
+    <string name="full_name">Nombre</string>
+    <string name="enter_name">Ingresa tu nombre</string>
+    <string name="username">Usuario</string>
+    <string name="enter_username">Ingresa tu usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="enter_password">Ingresa tu contraseña</string>
+    <string name="confirm_password">Ingresa de nuevo tu contraseña</string>
+    <string name="register_btn">Registrarme</string>
+    <string name="already_have_account">¿Ya tienes una cuenta?</string>
+    <string name="login_link">Iniciar sesión</string>
+    <string name="or_continue">o continúa con</string>
+    <string name="register_google">Registrarme con Google</string>
+    <string name="greeting">¡Hola, María!</string>
+    <string name="month_year">Enero 2025</string>
+    <string name="monthly_balance">Saldo mensual</string>
+    <string name="balance_amount">$2,450.00</string>
+    <string name="income">Ingresos</string>
+    <string name="income_amount">+$3,200.00</string>
+    <string name="expenses">Gastos</string>
+    <string name="expenses_amount">-$750.00</string>
+    <string name="recent_transactions">Transacciones recientes</string>
+    <string name="view_all">Ver todas</string>
+    <string name="add_transaction">Agregar transacciones</string>
+    <string name="dashboard_greeting">¡Hola, María!</string>
+    <string name="dashboard_month">Enero 2025</string>
+    <string name="user_profile">Perfil de usuario</string>
+    <string name="income_label">Ingresos</string>
+    <string name="expenses_label">Gastos</string>
+    <string name="wallet_icon">Icono de billetera</string>
+    <string name="menu_resumen">Resumen</string>
+    <string name="menu_gastos">Gastos</string>
+    <string name="menu_categorias">Categorías</string>
+    <string name="hola_maria">¡Hola, María!</string>
+    <string name="fecha_ejemplo">Enero 2025</string>
+    <string name="saldo_mensual">Saldo mensual</string>
+    <string name="ingresos">Ingresos</string>
+    <string name="gastos">Gastos</string>
+    <string name="transacciones_recientes">Transacciones recientes</string>
+    <string name="ver_todas">Ver todas</string>
+    <string name="resumen">Resumen</string>
+    <string name="categorias">Categorías</string>
+
+    <!-- Strings tuyos (Agregar Transacción y Categorías) -->
+>>>>>>> cb015e79a8f5519dc245c03b664a0dcdaf78eea6
     <string name="tipo_prompt">Seleccione tipo</string>
     <string name="categoria_prompt">Seleccione categoría</string>
 

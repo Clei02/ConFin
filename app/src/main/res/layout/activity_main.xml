@@ -7,7 +7,6 @@
     android:fillViewport="true"
     android:background="@android:color/white">
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
@@ -191,19 +190,36 @@
             app:layout_constraintTop_toBottomOf="@id/tvSeparador" />
 
         <!-- Texto de registro CENTRADO -->
-        <TextView
-            android:id="@+id/tvRegistro"
+        <LinearLayout
+            android:id="@+id/llRegistro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
             android:gravity="center"
-            android:text="¿No tienes cuenta? Regístrate"
-            android:textColor="#666666"
-            android:textSize="14sp"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnGoogleSignIn" />
+            app:layout_constraintTop_toBottomOf="@id/btnGoogleSignIn">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¿No tienes cuenta? "
+                android:textColor="#666666"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tvRegistro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Regístrate"
+                android:textColor="#2196F3"
+                android:textStyle="bold"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
