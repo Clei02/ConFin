@@ -2,6 +2,7 @@ package com.upc.confin;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,6 +14,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,6 +24,10 @@ public class MainActivity extends AppCompatActivity {
     private MaterialButton btnIniciarSesion;
     private MaterialButton btnGoogleSignIn;
     private TextView tvRegistro;
+
+    // Firebase
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +38,32 @@ public class MainActivity extends AppCompatActivity {
         initializeViews();
         setupWindowInsets();
         setupListeners();
+
+        // Inicializar Firebase y probar conexión
+        inicializarFirebase();
+        probarConexionFirebase();
+    }
+
+    private void inicializarFirebase() {
+        database = FirebaseDatabase.getInstance("https://v2-b2-2025-default-rtdb.firebaseio.com/");
+        myRef = database.getReference();
+    }
+
+    private void probarConexionFirebase() {
+        // Enviar mensaje de prueba
+        myRef.child("prueba").setValue("¡Hola desde ConFin! 🔥")
+                .addOnSuccessListener(aVoid -> {
+                    Log.d("Firebase", "Conexión exitosa");
+                    Toast.makeText(MainActivity.this,
+                            "✅ Firebase conectado correctamente",
+                            Toast.LENGTH_LONG).show();
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("Firebase", "Error de conexión: " + e.getMessage());
+                    Toast.makeText(MainActivity.this,
+                            "❌ Error: " + e.getMessage(),
+                            Toast.LENGTH_LONG).show();
+                });
     }
 
     private void initializeViews() {

@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ConFin</string>
-<<<<<<< HEAD
-
-    <!-- Agregar Transacción -->
-=======
     <string name="app_logo">Logo de ConFin</string>
 
-    <!-- Strings de tu compañero (registro y dashboard) -->
+    <!-- Login y Registro -->
     <string name="create_account">Crea tu cuenta</string>
     <string name="control_finances">Controla tus finanzas</string>
     <string name="full_name">Nombre</string>
@@ -22,6 +18,8 @@
     <string name="login_link">Iniciar sesión</string>
     <string name="or_continue">o continúa con</string>
     <string name="register_google">Registrarme con Google</string>
+
+    <!-- Dashboard -->
     <string name="greeting">¡Hola, María!</string>
     <string name="month_year">Enero 2025</string>
     <string name="monthly_balance">Saldo mensual</string>
@@ -39,9 +37,6 @@
     <string name="income_label">Ingresos</string>
     <string name="expenses_label">Gastos</string>
     <string name="wallet_icon">Icono de billetera</string>
-    <string name="menu_resumen">Resumen</string>
-    <string name="menu_gastos">Gastos</string>
-    <string name="menu_categorias">Categorías</string>
     <string name="hola_maria">¡Hola, María!</string>
     <string name="fecha_ejemplo">Enero 2025</string>
     <string name="saldo_mensual">Saldo mensual</string>
@@ -50,10 +45,8 @@
     <string name="transacciones_recientes">Transacciones recientes</string>
     <string name="ver_todas">Ver todas</string>
     <string name="resumen">Resumen</string>
-    <string name="categorias">Categorías</string>
 
-    <!-- Strings tuyos (Agregar Transacción y Categorías) -->
->>>>>>> cb015e79a8f5519dc245c03b664a0dcdaf78eea6
+    <!-- Agregar Transacción -->
     <string name="tipo_prompt">Seleccione tipo</string>
     <string name="categoria_prompt">Seleccione categoría</string>
 
@@ -74,7 +67,9 @@
         <item>Otros</item>
     </string-array>
 
-    <!-- Vista Categorías -->
+    <!-- Categorías -->
+    <string name="menu_categorias">Categorías</string>
+    <string name="categorias">Categorías</string>
     <string name="titulo_categorias">Categorías</string>
     <string name="categoria_alimentacion">Alimentación</string>
     <string name="categoria_transporte">Transporte</string>
@@ -96,8 +91,12 @@
 
     <!-- Bottom Navigation -->
     <string name="nav_resumen">Resumen</string>
+    <string name="menu_resumen">Resumen</string>
     <string name="nav_gastos">Gastos</string>
+    <string name="menu_gastos">Gastos</string>
     <string name="nav_categorias">Categorías</string>
+    <string name="expenses_title">Gastos</string>
+    <string name="gastos_titulo">Gastos</string>
 
     <!-- Content Descriptions -->
     <string name="desc_alimentacion">Alimentación</string>
@@ -109,6 +108,7 @@
     <string name="desc_ver_mas">Ver más</string>
     <string name="desc_agregar_categoria">Agregar categoría</string>
     <string name="letra_salud">S</string>
+    <string name="category_icon">Icono de categoría</string>
 
     <!-- Agregar Categoría -->
     <string name="titulo_agregar_categoria">Agregar Categoría</string>
@@ -127,7 +127,4 @@
     <string name="desc_maletin">Maletín</string>
     <string name="desc_regalo">Regalo</string>
     <string name="desc_mas">Más opciones</string>
-    <string name="expenses_title">Gastos</string>
-    <string name="category_icon">Icono de categoría</string>
-    <string name="gastos_titulo">Gastos</string>
 </resources>

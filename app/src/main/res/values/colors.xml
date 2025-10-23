@@ -16,5 +16,11 @@
     <color name="text_secondary_dark">#8A000000</color>
     <color name="green_income">#4CAF50</color>
     <color name="text_primary_light">#FFFFFFFF</color>
-    <color name="text_secondary_light">#B3FFFFFF</color>
+    <color name="text_secondary_light">#B3FFFFFF</color> <!-- Example, you might have this already -->
+
+
+    <!-- Add the missing color definition here -->
+    <color name="background_gray_light">#D3D3D3</color>
+
+    <!-- <color name="text_primary_dark">#FF212121</color> -->
 </resources>
