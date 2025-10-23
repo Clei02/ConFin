@@ -127,4 +127,7 @@
     <string name="desc_maletin">Maletín</string>
     <string name="desc_regalo">Regalo</string>
     <string name="desc_mas">Más opciones</string>
+    <string name="expenses_title">Gastos</string>
+    <string name="category_icon">Icono de categoría</string>
+    <string name="gastos_titulo">Gastos</string>
 </resources>
