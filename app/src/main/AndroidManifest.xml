@@ -37,6 +37,9 @@
         <activity
             android:name=".AgregarCategoriaActivity"
             android:exported="false" />
+        <activity
+            android:name=".AgregarTransaccionActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

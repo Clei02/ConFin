@@ -16,6 +16,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void inicializarFirebase() {
-        database = FirebaseDatabase.getInstance("https://v2-b2-2025-default-rtdb.firebaseio.com/");
+        database = FirebaseDatabase.getInstance("https://confindb-default-rtdb.firebaseio.com/");
         myRef = database.getReference();
     }
 
@@ -57,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this,
                             "✅ Firebase conectado correctamente",
                             Toast.LENGTH_LONG).show();
+
+                    // Inicializar categorías por defecto
+                    inicializarCategoriasDefault();
                 })
                 .addOnFailureListener(e -> {
                     Log.e("Firebase", "Error de conexión: " + e.getMessage());
@@ -64,6 +68,41 @@ public class MainActivity extends AppCompatActivity {
                             "❌ Error: " + e.getMessage(),
                             Toast.LENGTH_LONG).show();
                 });
+    }
+
+    private void inicializarCategoriasDefault() {
+        DatabaseHelper dbHelper = DatabaseHelper.getInstance();
+
+        // Verificar si ya existen categorías
+        dbHelper.loadCategories(new DatabaseHelper.OnCategoriesLoadedListener() {
+            @Override
+            public void onCategoriesLoaded(List<Category> categories) {
+                if (categories.isEmpty()) {
+                    // No hay categorías, crear las por defecto
+                    dbHelper.createDefaultCategories(new DatabaseHelper.OnOperationCompleteListener() {
+                        @Override
+                        public void onSuccess() {
+                            Log.d("Firebase", "✅ Categorías por defecto creadas");
+                            Toast.makeText(MainActivity.this,
+                                    "Categorías inicializadas",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onError(String error) {
+                            Log.e("Firebase", "Error creando categorías: " + error);
+                        }
+                    });
+                } else {
+                    Log.d("Firebase", "Las categorías ya existen (" + categories.size() + ")");
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                Log.e("Firebase", "Error verificando categorías: " + error);
+            }
+        });
     }
 
     private void initializeViews() {
@@ -96,8 +135,14 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        // TODO: Implementar lógica de login con base de datos
-        Toast.makeText(this, "Login implementación pendiente", Toast.LENGTH_SHORT).show();
+        // Por ahora hacemos login directo (sin validación real)
+        // TODO: Implementar validación real de usuarios
+        Toast.makeText(this, "¡Bienvenido! 👋", Toast.LENGTH_SHORT).show();
+
+        // Navegar al Dashboard
+        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+        startActivity(intent);
+        finish(); // Cerrar el login
     }
 
     private boolean validateLoginInputs(String usuario, String contraseña) {
