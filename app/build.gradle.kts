@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
-    id("com.google.gms.google-services")
-
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -35,18 +34,29 @@ android {
 
 dependencies {
 
+    // --- CORRECCIÓN DE SINTAXIS ---
+    // Todas las dependencias de 'libs' deben ir entre paréntesis.
+
+    // --- DEPENDENCIAS EXISTENTES (CORREGIDAS) ---
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.recyclerview)
-    implementation(libs.firebase.database)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    // (Dependencias hardcodeadas - estas ya usaban paréntesis, por eso estaban bien)
     implementation("com.google.android.gms:play-services-auth:20.7.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("com.google.android.material:material:1.11.0")
-    implementation("com.google.firebase:firebase-ai:17.4.0")
-    implementation("com.google.firebase:firebase-database")
+    // --- CORRECCIONES DE FIREBASE ---
+
+    // 1. AÑADE EL BoM (Bill of Materials)
+    // La sintaxis en Kotlin es `platform(...)`
+    implementation(platform(libs.firebase.bom))
+
+    // 2. AÑADE LAS DEPENDENCIAS DE FIREBASE (CON PARÉNTESIS)
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.database)
+    implementation(libs.firebase.ai)
 }

@@ -50,21 +50,21 @@ public class ExpensesActivity extends AppCompatActivity {
      */
     private void setupNavigation() {
         // Marca "Gastos" como el ítem seleccionado.
-        bottomNavigation.setSelectedItemId(R.id.nav_expenses);
+        bottomNavigation.setSelectedItemId(R.id.nav_gastos);
 
         // Listener para los clics en el menú.
         bottomNavigation.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
 
-            if (itemId == R.id.nav_summary) {
+            if (itemId == R.id.nav_resumen) {
                 // Ir a la pantalla de Resumen (HomeActivity).
                 startActivity(new Intent(this, HomeActivity.class));
                 finish(); // Cierra esta pantalla.
                 return true;
-            } else if (itemId == R.id.nav_expenses) {
+            } else if (itemId == R.id.nav_gastos) {
                 // Ya estamos aquí, no hacer nada.
                 return true;
-            } else if (itemId == R.id.nav_categories) {
+            } else if (itemId == R.id.nav_categorias) {
                 // Ir a la pantalla de Categorías.
                 startActivity(new Intent(this, CategoriasActivity.class));
                 finish(); // Cierra esta pantalla.

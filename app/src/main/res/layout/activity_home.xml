@@ -37,13 +37,17 @@
                     android:textColor="@color/text_secondary_dark"
                     android:textSize="14sp" />
             </LinearLayout>
+
             <ImageView
+                android:id="@+id/iv_profile_icon"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_alignParentEnd="true"
                 android:src="@drawable/ic_person"
                 android:contentDescription="Icono de perfil"
-                app:tint="@color/text_primary_dark" />
+                app:tint="@color/text_primary_dark"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true" />
         </RelativeLayout>
 
         <com.google.android.material.card.MaterialCardView
@@ -176,9 +180,7 @@
         app:tint="@android:color/white"
         android:backgroundTint="@color/card_dark_background"
         app:borderWidth="0dp"
-
         android:layout_gravity="bottom|end"
-
         android:layout_marginBottom="80dp"
         android:layout_marginEnd="24dp" />
 

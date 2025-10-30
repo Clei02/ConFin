@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "1082538631659",
+    "firebase_url": "https://confindb-default-rtdb.firebaseio.com",
+    "project_id": "confindb",
+    "storage_bucket": "confindb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1082538631659:android:7ebf1e7139957e4aa4b9ae",
+        "android_client_info": {
+          "package_name": "com.upc.confin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDD95qXsJy0aYIys9dFWeEdt5orIPT2aFY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
