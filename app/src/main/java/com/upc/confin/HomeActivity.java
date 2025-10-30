@@ -1,218 +1,138 @@
-package com.upc.confin;
+package com.upc.confin; // Reemplaza con tu package name
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.PopupMenu; // Importar PopupMenu
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView; // Importar BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth; // Importar Firebase Auth
+
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 
 public class HomeActivity extends AppCompatActivity {
 
+    // --- Variables de la UI ---
     private RecyclerView recyclerViewTransactions;
+    private BottomNavigationView bottomNavigation;
+    private ImageView ivProfileIcon; // Variable para el icono de perfil
+
+    // --- Variables de Datos y Firebase ---
     private TransactionAdapter transactionAdapter;
-    private List<TransactionDisplay> transactionDisplayList;
-
-    private TextView textSaldoAmount;
-    private TextView textIngresosAmount;
-    private TextView textGastosAmount;
-
-    private DatabaseHelper dbHelper;
-    private Map<String, Category> categoryMap; // Para almacenar categorías
+    private List<Transaction> transactionList;
+    private FirebaseAuth mAuth; // Instancia de Firebase Authentication
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        // Inicializar vistas
-        initViews();
+        // --- Inicializar Firebase Auth ---
+        mAuth = FirebaseAuth.getInstance();
 
-        // Inicializar DatabaseHelper
-        dbHelper = DatabaseHelper.getInstance();
-        categoryMap = new HashMap<>();
-
-        // Configurar RecyclerView
-        setupRecyclerView();
-
-        // Cargar categorías primero, luego transacciones
-        loadCategories();
-
-        // Configurar FAB (Floating Action Button)
-        com.google.android.material.floatingactionbutton.FloatingActionButton fab =
-                findViewById(R.id.fab);
-        fab.setOnClickListener(v -> {
-            Intent intent = new Intent(HomeActivity.this, AgregarTransaccionActivity.class);
-            startActivity(intent);
-        });
-
-        // Configurar Bottom Navigation
-        setupBottomNavigation();
-    }
-
-    private void initViews() {
+        // --- Inicializar Vistas ---
         recyclerViewTransactions = findViewById(R.id.recycler_view_transactions);
-        textSaldoAmount = findViewById(R.id.text_saldo_amount);
-        textIngresosAmount = findViewById(R.id.text_ingresos_amount);
-        textGastosAmount = findViewById(R.id.text_gastos_amount);
+        bottomNavigation = findViewById(R.id.bottom_navigation_view);
+        ivProfileIcon = findViewById(R.id.iv_profile_icon); // Conectar el icono de perfil
+
+        // --- Configurar Componentes ---
+        setupRecyclerView();
+        loadTransactionData();
+        setupNavigation(); // Método para la navegación inferior
+        setupProfileMenu(); // Nuevo método para el menú de perfil
     }
 
-    private void setupRecyclerView() {
-        transactionDisplayList = new ArrayList<>();
-        transactionAdapter = new TransactionAdapter(this, transactionDisplayList);
-        recyclerViewTransactions.setLayoutManager(new LinearLayoutManager(this));
-        recyclerViewTransactions.setAdapter(transactionAdapter);
-    }
+    /**
+     * Configura el listener del icono de perfil para mostrar el menú.
+     */
+    private void setupProfileMenu() {
+        ivProfileIcon.setOnClickListener(view -> {
+            // 1. Crear el PopupMenu y anclarlo al icono
+            PopupMenu popup = new PopupMenu(this, ivProfileIcon);
 
-    private void loadCategories() {
-        dbHelper.loadCategories(new DatabaseHelper.OnCategoriesLoadedListener() {
-            @Override
-            public void onCategoriesLoaded(List<Category> categories) {
-                // Guardar categorías en un mapa para acceso rápido
-                for (Category category : categories) {
-                    categoryMap.put(category.getId(), category);
+            // 2. Inflar (cargar) el menú que creamos (profile_menu.xml)
+            popup.getMenuInflater().inflate(R.menu.profile_menu, popup.getMenu());
+
+            // 3. Definir la acción al hacer clic en una opción
+            popup.setOnMenuItemClickListener(menuItem -> {
+                if (menuItem.getItemId() == R.id.menu_sign_out) {
+                    // Si el usuario selecciona "Cerrar Sesión", llamamos al método
+                    signOut();
+                    return true;
                 }
+                return false;
+            });
 
-                // Ahora cargar transacciones
-                loadTransactions();
-            }
-
-            @Override
-            public void onError(String error) {
-                Toast.makeText(HomeActivity.this,
-                        "Error cargando categorías: " + error,
-                        Toast.LENGTH_SHORT).show();
-            }
+            // 4. Mostrar el menú
+            popup.show();
         });
     }
 
-    private void loadTransactions() {
-        dbHelper.loadTransactions(new DatabaseHelper.OnTransactionsLoadedListener() {
-            @Override
-            public void onTransactionsLoaded(List<Transaction> transactions) {
-                // Limpiar lista actual
-                transactionDisplayList.clear();
+    /**
+     * Cierra la sesión del usuario en Firebase y lo regresa al Login.
+     */
+    private void signOut() {
+        // Cierra la sesión en Firebase Authentication
+        mAuth.signOut();
 
-                double totalIngresos = 0;
-                double totalGastos = 0;
+        // Prepara el Intent para volver a la pantalla de Login (MainActivity)
+        Intent intent = new Intent(HomeActivity.this, MainActivity.class);
 
-                // Convertir transacciones a formato de display
-                for (Transaction transaction : transactions) {
-                    Category category = categoryMap.get(transaction.getCategoriaId());
+        // Estas "flags" son MUY IMPORTANTES. Limpian el historial de navegación
+        // para que el usuario no pueda "volver" a HomeActivity con el botón de atrás.
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-                    if (category != null) {
-                        // Obtener icono de la categoría
-                        int iconResId = category.getIconoResId(HomeActivity.this);
-
-                        // Formatear fecha
-                        String dateStr = formatDate(transaction.getFecha());
-
-                        // Crear detalle (categoría + fecha)
-                        String detail = category.getNombre() + " • " + dateStr;
-
-                        // Agregar a lista de display (solo las 5 más recientes)
-                        if (transactionDisplayList.size() < 5) {
-                            transactionDisplayList.add(new TransactionDisplay(
-                                    iconResId,
-                                    transaction.getDescripcion(),
-                                    detail,
-                                    transaction.getMonto(),
-                                    transaction.getTipo()
-                            ));
-                        }
-
-                        // Calcular totales
-                        if (transaction.getTipo().equals("INGRESO")) {
-                            totalIngresos += transaction.getMonto();
-                        } else {
-                            totalGastos += transaction.getMonto();
-                        }
-                    }
-                }
-
-                // Actualizar UI
-                updateBalances(totalIngresos, totalGastos);
-                transactionAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onError(String error) {
-                Toast.makeText(HomeActivity.this,
-                        "Error cargando transacciones: " + error,
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
+        startActivity(intent);
+        finish(); // Cierra esta actividad (HomeActivity)
     }
 
-    private void updateBalances(double ingresos, double gastos) {
-        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(new Locale("es", "CO"));
+    /**
+     * Configura la barra de navegación inferior (BottomNavigationView).
+     */
+    private void setupNavigation() {
+        // Marca "Resumen" como el ítem seleccionado.
+        bottomNavigation.setSelectedItemId(R.id.nav_resumen);
 
-        double saldo = ingresos - gastos;
-
-        textSaldoAmount.setText(currencyFormat.format(saldo));
-        textIngresosAmount.setText("+" + currencyFormat.format(ingresos));
-        textGastosAmount.setText("-" + currencyFormat.format(gastos));
-    }
-
-    private String formatDate(long timestamp) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM", new Locale("es", "CO"));
-        return sdf.format(new Date(timestamp));
-    }
-
-    private void setupBottomNavigation() {
-        com.google.android.material.bottomnavigation.BottomNavigationView bottomNav =
-                findViewById(R.id.bottom_navigation_view);
-
-        bottomNav.setSelectedItemId(R.id.nav_summary);
-
-        bottomNav.setOnItemSelectedListener(item -> {
+        // Listener para los clics en el menú.
+        bottomNavigation.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
-
-            if (itemId == R.id.nav_summary) {
-                // Ya estamos aquí
+            if (itemId == R.id.nav_resumen) {
+                // Ya estamos aquí, no hacer nada.
                 return true;
-            } else if (itemId == R.id.nav_expenses) {
+            } else if (itemId == R.id.nav_gastos) {
                 startActivity(new Intent(this, ExpensesActivity.class));
-                finish();
                 return true;
-            } else if (itemId == R.id.nav_categories) {
+            } else if (itemId == R.id.nav_categorias) {
                 startActivity(new Intent(this, CategoriasActivity.class));
-                finish();
                 return true;
             }
             return false;
         });
     }
 
-    // Clase interna para mostrar transacciones en el RecyclerView
-    public static class TransactionDisplay {
-        private final int icon;
-        private final String name;
-        private final String detail;
-        private final double amount;
-        private final String tipo;
+    /**
+     * Configura el RecyclerView (tu código original).
+     */
+    private void setupRecyclerView() {
+        transactionList = new ArrayList<>();
+        transactionAdapter = new TransactionAdapter(this, transactionList);
+        recyclerViewTransactions.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewTransactions.setAdapter(transactionAdapter);
+    }
 
-        public TransactionDisplay(int icon, String name, String detail, double amount, String tipo) {
-            this.icon = icon;
-            this.name = name;
-            this.detail = detail;
-            this.amount = amount;
-            this.tipo = tipo;
-        }
-
-        public int getIcon() { return icon; }
-        public String getName() { return name; }
-        public String getDetail() { return detail; }
-        public double getAmount() { return amount; }
-        public String getTipo() { return tipo; }
+    /**
+     * Carga los datos de ejemplo (tu código original).
+     */
+    private void loadTransactionData() {
+        transactionList.add(new Transaction(R.drawable.ic_shopping_cart, "Supermercado Central", "Alimentación • 15 Ene", 85.50));
+        transactionList.add(new Transaction(R.drawable.ic_local_gas_station, "Gasolinera Shell", "Transporte • 14 Ene", 45.00));
+        transactionList.add(new Transaction(R.drawable.ic_live_tv, "Netflix", "Entretenimiento • 13 Ene", 12.99));
+        transactionList.add(new Transaction(R.drawable.ic_restaurant, "Restaurante Italiano", "Restaurantes • 12 Ene", 67.80));
+        transactionAdapter.notifyDataSetChanged();
     }
 }

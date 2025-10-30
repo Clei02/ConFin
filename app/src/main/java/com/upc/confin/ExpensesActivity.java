@@ -1,165 +1,92 @@
-package com.upc.confin;
+package com.upc.confin; // Reemplaza con tu paquete
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 
 public class ExpensesActivity extends AppCompatActivity {
 
+    // --- Variables de la UI y de Datos ---
     private RecyclerView rvExpenses;
     private BottomNavigationView bottomNavigation;
-    private ExpenseAdapter adapter;
-    private List<ExpenseDisplay> expensesList;
-    private DatabaseHelper dbHelper;
-    private Map<String, Category> categoryMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // 1. Establece el layout de la actividad.
         setContentView(R.layout.activity_expenses);
 
-        // Inicializar vistas
+        // 2. Conecta las variables con las vistas del XML.
         rvExpenses = findViewById(R.id.rv_expenses);
         bottomNavigation = findViewById(R.id.bottom_navigation_view);
 
-        // Inicializar DatabaseHelper
-        dbHelper = DatabaseHelper.getInstance();
-        categoryMap = new HashMap<>();
-        expensesList = new ArrayList<>();
-
-        // Configurar RecyclerView
+        // 3. Llama a los métodos para configurar la lista y la navegación.
         setupRecyclerView();
-
-        // Configurar navegación
         setupNavigation();
-
-        // Cargar datos
-        loadCategories();
     }
 
+    /**
+     * Prepara y muestra la lista de gastos en el RecyclerView.
+     */
     private void setupRecyclerView() {
+        // Define que la lista será vertical.
         rvExpenses.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new ExpenseAdapter(expensesList);
+
+        // Crea los datos de ejemplo.
+        List<Expense> expenses = createFakeExpenses();
+
+        // Crea el adaptador y se lo asigna al RecyclerView.
+        ExpenseAdapter adapter = new ExpenseAdapter(expenses);
         rvExpenses.setAdapter(adapter);
     }
 
+    /**
+     * Configura la barra de navegación inferior.
+     */
     private void setupNavigation() {
-        bottomNavigation.setSelectedItemId(R.id.nav_expenses);
+        // Marca "Gastos" como el ítem seleccionado.
+        bottomNavigation.setSelectedItemId(R.id.nav_gastos);
 
+        // Listener para los clics en el menú.
         bottomNavigation.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
 
-            if (itemId == R.id.nav_summary) {
+            if (itemId == R.id.nav_resumen) {
+                // Ir a la pantalla de Resumen (HomeActivity).
                 startActivity(new Intent(this, HomeActivity.class));
-                finish();
+                finish(); // Cierra esta pantalla.
                 return true;
-            } else if (itemId == R.id.nav_expenses) {
+            } else if (itemId == R.id.nav_gastos) {
+                // Ya estamos aquí, no hacer nada.
                 return true;
-            } else if (itemId == R.id.nav_categories) {
+            } else if (itemId == R.id.nav_categorias) {
+                // Ir a la pantalla de Categorías.
                 startActivity(new Intent(this, CategoriasActivity.class));
-                finish();
+                finish(); // Cierra esta pantalla.
                 return true;
             }
             return false;
         });
     }
 
-    private void loadCategories() {
-        dbHelper.loadCategories(new DatabaseHelper.OnCategoriesLoadedListener() {
-            @Override
-            public void onCategoriesLoaded(List<Category> categories) {
-                // Guardar categorías en mapa
-                for (Category category : categories) {
-                    categoryMap.put(category.getId(), category);
-                }
-                // Cargar gastos
-                loadExpenses();
-            }
-
-            @Override
-            public void onError(String error) {
-                Toast.makeText(ExpensesActivity.this,
-                        "Error cargando categorías: " + error,
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void loadExpenses() {
-        // Cargar solo transacciones de tipo GASTO
-        dbHelper.loadTransactionsByType("GASTO", new DatabaseHelper.OnTransactionsLoadedListener() {
-            @Override
-            public void onTransactionsLoaded(List<Transaction> transactions) {
-                expensesList.clear();
-
-                for (Transaction transaction : transactions) {
-                    Category category = categoryMap.get(transaction.getCategoriaId());
-
-                    if (category != null) {
-                        int iconResId = category.getIconoResId(ExpensesActivity.this);
-                        String dateStr = formatDate(transaction.getFecha());
-
-                        expensesList.add(new ExpenseDisplay(
-                                category.getNombre(),
-                                dateStr,
-                                String.format(Locale.getDefault(), "-$%.2f", transaction.getMonto()),
-                                iconResId
-                        ));
-                    }
-                }
-
-                adapter.notifyDataSetChanged();
-
-                // Mostrar mensaje si no hay gastos
-                if (expensesList.isEmpty()) {
-                    Toast.makeText(ExpensesActivity.this,
-                            "No hay gastos registrados",
-                            Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onError(String error) {
-                Toast.makeText(ExpensesActivity.this,
-                        "Error cargando gastos: " + error,
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private String formatDate(long timestamp) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy", new Locale("es", "CO"));
-        return sdf.format(new Date(timestamp));
-    }
-
-    // Clase interna para mostrar gastos
-    public static class ExpenseDisplay {
-        private final String categoryName;
-        private final String date;
-        private final String amount;
-        private final int iconResId;
-
-        public ExpenseDisplay(String categoryName, String date, String amount, int iconResId) {
-            this.categoryName = categoryName;
-            this.date = date;
-            this.amount = amount;
-            this.iconResId = iconResId;
-        }
-
-        public String getCategoryName() { return categoryName; }
-        public String getDate() { return date; }
-        public String getAmount() { return amount; }
-        public int getIconResId() { return iconResId; }
+    /**
+     * Genera una lista de gastos de ejemplo para mostrar.
+     * En una app real, estos datos vendrían de una base de datos.
+     */
+    private List<Expense> createFakeExpenses() {
+        List<Expense> expenseList = new ArrayList<>();
+        // Asegúrate de tener los iconos en res/drawable.
+        expenseList.add(new Expense("Comida", "15 Enero 2025", "-$25.50", R.drawable.ic_restaurant));
+        expenseList.add(new Expense("Transporte", "14 Enero 2025", "-$12.00", R.drawable.ic_transporte));
+        expenseList.add(new Expense("Compras", "13 Enero 2025", "-$89.99", R.drawable.ic_compras));
+        expenseList.add(new Expense("Hogar", "12 Enero 2025", "-$156.75", R.drawable.ic_hogar));
+        expenseList.add(new Expense("Entretenimiento", "11 Enero 2025", "-$42.30", R.drawable.ic_entretenimiento));
+        expenseList.add(new Expense("Salud", "10 Enero 2025", "-$75.00", R.drawable.ic_entretenimiento));
+        return expenseList;
     }
 }

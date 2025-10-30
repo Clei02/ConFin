@@ -113,7 +113,6 @@
     <!-- Agregar Categoría -->
     <string name="titulo_agregar_categoria">Agregar Categoría</string>
     <string name="label_nombre_categoria">Nombre de la categoría</string>
-    <string name="label_tipo_categoria">Tipo</string>
     <string name="hint_nombre_categoria">Ej. Transporte, Comida</string>
     <string name="label_icono_representativo">Icono representativo</string>
     <string name="label_color_categoria">Color de la categoría</string>

@@ -1,49 +1,31 @@
-package com.upc.confin;
+package com.upc.confin; // Reemplaza con tu package name
 
 public class Transaction {
-    private String id;
-    private String tipo; // "INGRESO" o "GASTO"
-    private String descripcion;
-    private double monto;
-    private String categoriaId;
-    private long fecha; // timestamp en milisegundos
-    private long timestamp; // Para ordenar
+    private final int icon;
+    private final String name;
+    private final String detail;
+    private final double amount;
 
-    // Constructor vacío requerido por Firebase
-    public Transaction() {
+    public Transaction(int icon, String name, String detail, double amount) {
+        this.icon = icon;
+        this.name = name;
+        this.detail = detail;
+        this.amount = amount;
     }
 
-    // Constructor completo
-    public Transaction(String id, String tipo, String descripcion, double monto,
-                       String categoriaId, long fecha) {
-        this.id = id;
-        this.tipo = tipo;
-        this.descripcion = descripcion;
-        this.monto = monto;
-        this.categoriaId = categoriaId;
-        this.fecha = fecha;
-        this.timestamp = System.currentTimeMillis();
+    public int getIcon() {
+        return icon;
     }
 
-    // Getters y Setters
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+    public String getName() {
+        return name;
+    }
 
-    public String getTipo() { return tipo; }
-    public void setTipo(String tipo) { this.tipo = tipo; }
+    public String getDetail() {
+        return detail;
+    }
 
-    public String getDescripcion() { return descripcion; }
-    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
-
-    public double getMonto() { return monto; }
-    public void setMonto(double monto) { this.monto = monto; }
-
-    public String getCategoriaId() { return categoriaId; }
-    public void setCategoriaId(String categoriaId) { this.categoriaId = categoriaId; }
-
-    public long getFecha() { return fecha; }
-    public void setFecha(long fecha) { this.fecha = fecha; }
-
-    public long getTimestamp() { return timestamp; }
-    public void setTimestamp(long timestamp) { this.timestamp = timestamp; }
+    public double getAmount() {
+        return amount;
+    }
 }

@@ -2,15 +2,6 @@
 plugins {
     alias(libs.plugins.android.application) apply false
 
+    // Esta es la única línea que necesitas para el plugin de Google Services
+    alias(libs.plugins.google.gms.google.services) apply false
 }
-
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath ("com.google.gms:google-services:4.4.4")
-    }
-}
-

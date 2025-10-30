@@ -72,25 +72,6 @@
                 android:inputType="text"
                 android:layout_marginBottom="24dp" />
 
-            <!-- Tipo de categoría -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/label_tipo_categoria"
-                android:textSize="14sp"
-                android:textColor="#666666"
-                android:layout_marginBottom="8dp" />
-
-            <Spinner
-                android:id="@+id/spinnerTipo"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:background="@drawable/spinner_background"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:layout_marginBottom="24dp"
-                android:spinnerMode="dropdown" />
-
             <!-- Icono representativo -->
             <TextView
                 android:layout_width="wrap_content"
