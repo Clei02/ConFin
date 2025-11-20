@@ -127,4 +127,7 @@
     <string name="desc_maletin">Maletín</string>
     <string name="desc_regalo">Regalo</string>
     <string name="desc_mas">Más opciones</string>
+
+    <!-- IMPORTANTE: Reemplaza esto con tu Web Client ID real del google-services.json -->
+    <string name="default_web_client_id">1082538631659-oi036tr6lomq9q788bh3cdptpp6mrvno.apps.googleusercontent.com</string>
 </resources>

@@ -1,28 +1,53 @@
-package com.upc.confin; // Reemplaza con tu paquete
+package com.upc.confin;
 
-/**
- * Clase Modelo (POJO) para representar la información del usuario
- * que se guardará en Firebase Realtime Database.
- */
 public class User {
-    // Los campos deben ser públicos o tener getters/setters para Firebase.
-    public String nombre;
-    public String email;
+    private String id;
+    private String nombre;      // Nombre completo
+    private String username;    // Usuario único
+    private String email;       // Email (nuevo)
+    private String password;    // Hash encriptado
+    private String photoUrl;    // Foto de perfil (para Google)
 
-    /**
-     * Constructor vacío.
-     * ¡OBLIGATORIO para que Firebase Realtime Database pueda leer los datos!
-     */
+    // Constructor vacío para Firebase
     public User() {
     }
 
-    /**
-     * Constructor para crear un nuevo objeto de usuario.
-     * @param nombre Nombre completo del usuario.
-     * @param email Correo electrónico del usuario.
-     */
-    public User(String nombre, String email) {
+    // Constructor completo
+    public User(String id, String nombre, String username, String email, String password, String photoUrl) {
+        this.id = id;
         this.nombre = nombre;
+        this.username = username;
         this.email = email;
+        this.password = password;
+        this.photoUrl = photoUrl;
     }
+
+    // Constructor sin photoUrl (para registro manual)
+    public User(String id, String nombre, String username, String email, String password) {
+        this.id = id;
+        this.nombre = nombre;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.photoUrl = null;
+    }
+
+    // Getters y Setters
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
+
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
+
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
+
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
+
+    public String getPhotoUrl() { return photoUrl; }
+    public void setPhotoUrl(String photoUrl) { this.photoUrl = photoUrl; }
 }

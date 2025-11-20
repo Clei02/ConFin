@@ -57,30 +57,30 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvAppName" />
 
-        <!-- Label Usuario -->
+        <!-- Label Correo electrónico (CAMBIO AQUÍ) -->
         <TextView
             android:id="@+id/tvUsuarioLabel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="Usuario"
+            android:text="Correo electrónico"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvSubtitle" />
 
-        <!-- Campo de entrada de Usuario -->
+        <!-- Campo de entrada de Email (CAMBIO AQUÍ) -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilUsuario"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="Ingresa tu usuario"
+            android:hint="tucorreo@ejemplo.com"
             android:textColorHint="#999999"
             app:boxStrokeColor="#CCCCCC"
-            app:endIconDrawable="@drawable/ic_person"
+            app:endIconDrawable="@drawable/ic_email"
             app:endIconMode="custom"
             app:endIconTint="#999999"
             app:hintTextColor="#999999"
@@ -92,7 +92,7 @@
                 android:id="@+id/etUsuario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
+                android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:textColor="@android:color/black"
                 android:textSize="14sp" />

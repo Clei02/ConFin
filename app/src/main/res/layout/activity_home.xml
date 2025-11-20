@@ -17,23 +17,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true">
+
+                <!-- CAMBIO: Agregar ID text_greeting -->
                 <TextView
+                    android:id="@+id/text_greeting"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/hola_maria"
+                    android:text="¡Hola, Usuario!"
                     android:textColor="@color/text_primary_dark"
                     android:textSize="24sp"
                     android:textStyle="bold" />
+
+                <!-- CAMBIO: Agregar ID text_month_year -->
                 <TextView
+                    android:id="@+id/text_month_year"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/fecha_ejemplo"
+                    android:text="Octubre 2025"
                     android:textColor="@color/text_secondary_dark"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -47,7 +54,8 @@
                 android:contentDescription="Icono de perfil"
                 app:tint="@color/text_primary_dark"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:clickable="true" />
+                android:clickable="true"
+                android:focusable="true" />
         </RelativeLayout>
 
         <com.google.android.material.card.MaterialCardView
@@ -58,10 +66,12 @@
             app:cardBackgroundColor="@color/card_dark_background"
             app:cardCornerRadius="16dp"
             app:cardElevation="8dp">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="20dp">
+
                 <TextView
                     android:id="@+id/label_saldo"
                     android:layout_width="wrap_content"
@@ -70,6 +80,7 @@
                     android:textColor="@color/text_secondary_light"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
@@ -78,17 +89,19 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:contentDescription="Icono de billetera" />
+
                 <TextView
                     android:id="@+id/text_saldo_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="$2,450.00"
+                    android:text="$0,00"
                     android:textColor="@color/text_primary_light"
                     android:textSize="34sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/label_saldo" />
+
                 <TextView
                     android:id="@+id/label_ingresos"
                     android:layout_width="wrap_content"
@@ -98,16 +111,18 @@
                     android:textColor="@color/text_secondary_light"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/text_saldo_amount" />
+
                 <TextView
                     android:id="@+id/text_ingresos_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="+$3,200.00"
+                    android:text="+$0,00"
                     android:textColor="@color/green_income"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/label_ingresos" />
+
                 <TextView
                     android:id="@+id/label_gastos"
                     android:layout_width="wrap_content"
@@ -117,11 +132,12 @@
                     android:textColor="@color/text_secondary_light"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/text_saldo_amount" />
+
                 <TextView
                     android:id="@+id/text_gastos_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="-$750.00"
+                    android:text="-$0,00"
                     android:textColor="@color/text_primary_light"
                     android:textSize="16sp"
                     android:textStyle="bold"
@@ -137,6 +153,7 @@
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:layout_marginBottom="8dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -144,6 +161,7 @@
                 android:textColor="@color/text_primary_dark"
                 android:textSize="18sp"
                 android:textStyle="bold" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

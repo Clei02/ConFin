@@ -6,305 +6,282 @@
     android:fillViewport="true"
     android:background="@android:color/white">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/main"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="24dp">
+        android:orientation="vertical"
+        android:padding="32dp"
+        android:gravity="center_horizontal">
 
-        <!-- Logo -->
+        <!-- Logo de la aplicación -->
         <ImageView
-            android:id="@+id/ivLogo"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/logo_background"
-            android:contentDescription="@string/app_logo"
             android:padding="16dp"
             android:src="@drawable/ic_wallet"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:contentDescription="@string/app_logo" />
 
         <!-- Título -->
         <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/create_account"
+            android:text="Crea tu cuenta"
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="@android:color/black"
-            android:gravity="center"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivLogo" />
+            android:layout_marginBottom="8dp" />
 
-        <!-- Subtítulo -->
         <TextView
-            android:id="@+id/tvSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Controla tus finanzas"
+            android:textSize="14sp"
+            android:textColor="@color/dark_gray"
+            android:layout_marginBottom="32dp" />
+
+        <!-- Campo Nombre -->
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/control_finances"
-            android:textSize="14sp"
-            android:textColor="#666666"
-            android:gravity="center"
-            android:layout_marginBottom="32dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
-
-        <!-- Label Nombre -->
-        <TextView
-            android:id="@+id/tvNameLabel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/full_name"
+            android:text="Nombre"
             android:textSize="14sp"
             android:textStyle="bold"
             android:textColor="@android:color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvSubtitle" />
+            android:layout_marginBottom="8dp" />
 
-        <!-- EditText Nombre -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilName"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:hint="@string/enter_name"
-            android:textColorHint="#999999"
-            app:boxStrokeColor="#CCCCCC"
-            app:hintTextColor="#999999"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvNameLabel">
+            android:layout_marginBottom="16dp"
+            android:hint="Ingresa tu nombre"
+            app:boxStrokeColor="@color/input_box_stroke"
+            app:hintTextColor="@color/hint_gray">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:maxLines="1"
-                android:textColor="@android:color/black"
-                android:textSize="14sp" />
+                android:inputType="textPersonName"
+                android:textSize="14sp"
+                android:textColor="@android:color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Label Usuario -->
+        <!-- Campo Usuario -->
         <TextView
-            android:id="@+id/tvUsernameLabel"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/username"
+            android:text="Usuario"
             android:textSize="14sp"
             android:textStyle="bold"
             android:textColor="@android:color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilName" />
+            android:layout_marginBottom="8dp" />
 
-        <!-- EditText Usuario -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilUsername"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:hint="@string/enter_username"
-            android:textColorHint="#999999"
-            app:boxStrokeColor="#CCCCCC"
-            app:endIconDrawable="@drawable/ic_person"
+            android:layout_marginBottom="16dp"
+            android:hint="Ingresa tu usuario"
+            app:boxStrokeColor="@color/input_box_stroke"
+            app:hintTextColor="@color/hint_gray"
             app:endIconMode="custom"
-            app:endIconTint="#999999"
-            app:hintTextColor="#999999"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvUsernameLabel">
+            app:endIconDrawable="@drawable/ic_person"
+            app:endIconTint="@color/dark_gray">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etUsername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:maxLines="1"
-                android:textColor="@android:color/black"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:textColor="@android:color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Label Contraseña -->
+        <!-- Campo Email -->
         <TextView
-            android:id="@+id/tvPasswordLabel"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/password"
+            android:text="Correo electrónico"
             android:textSize="14sp"
             android:textStyle="bold"
             android:textColor="@android:color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilUsername" />
+            android:layout_marginBottom="8dp" />
 
-        <!-- EditText Contraseña -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilPassword"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:hint="@string/enter_password"
-            android:textColorHint="#999999"
-            app:boxStrokeColor="#CCCCCC"
+            android:layout_marginBottom="16dp"
+            android:hint="tucorreo@ejemplo.com"
+            app:boxStrokeColor="@color/input_box_stroke"
+            app:hintTextColor="@color/hint_gray"
+            app:endIconMode="custom"
+            app:endIconDrawable="@drawable/ic_email"
+            app:endIconTint="@color/dark_gray">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:textSize="14sp"
+                android:textColor="@android:color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Campo Contraseña -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Contraseña"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="8dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:hint="Ingresa tu contraseña"
+            app:boxStrokeColor="@color/input_box_stroke"
+            app:hintTextColor="@color/hint_gray"
             app:endIconMode="password_toggle"
-            app:endIconTint="#999999"
-            app:hintTextColor="#999999"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvPasswordLabel">
+            app:endIconTint="@color/dark_gray">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:maxLines="1"
-                android:textColor="@android:color/black"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:textColor="@android:color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Label Confirmar Contraseña -->
+        <!-- Campo Confirmar Contraseña -->
         <TextView
-            android:id="@+id/tvConfirmLabel"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/confirm_password"
+            android:text="Ingresa de nuevo tu contraseña"
             android:textSize="14sp"
             android:textStyle="bold"
             android:textColor="@android:color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilPassword" />
+            android:layout_marginBottom="8dp" />
 
-        <!-- EditText Confirmar Contraseña -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilConfirmPassword"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:hint="@string/enter_password"
-            android:textColorHint="#999999"
-            app:boxStrokeColor="#CCCCCC"
+            android:layout_marginBottom="24dp"
+            android:hint="Ingresa tu contraseña"
+            app:boxStrokeColor="@color/input_box_stroke"
+            app:hintTextColor="@color/hint_gray"
             app:endIconMode="password_toggle"
-            app:endIconTint="#999999"
-            app:hintTextColor="#999999"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvConfirmLabel">
+            app:endIconTint="@color/dark_gray">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etConfirmPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:maxLines="1"
-                android:textColor="@android:color/black"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:textColor="@android:color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Botón Registrarse -->
+        <!-- Botón Registrar -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnRegister"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:layout_marginTop="32dp"
-            android:text="@string/register_btn"
+            android:text="Registrarme"
+            android:textColor="@android:color/white"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:textColor="@android:color/white"
             android:textAllCaps="false"
             app:backgroundTint="@android:color/black"
             app:cornerRadius="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilConfirmPassword" />
+            android:layout_marginBottom="16dp" />
 
-        <!-- Texto: ¿Ya tienes cuenta? -->
+        <!-- Texto "Ya tienes cuenta?" -->
         <LinearLayout
-            android:id="@+id/llLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
+            android:layout_marginBottom="16dp"
             android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnRegister">
+            android:gravity="center">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/already_have_account"
+                android:text="¿Ya tienes una cuenta? "
                 android:textSize="14sp"
-                android:textColor="#666666" />
+                android:textColor="@color/dark_gray" />
 
             <TextView
                 android:id="@+id/tvLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:text="@string/login_link"
+                android:text="Iniciar sesión"
                 android:textSize="14sp"
+                android:textColor="@color/primary"
                 android:textStyle="bold"
-                android:textColor="#2196F3" />
-
+                android:clickable="true"
+                android:focusable="true" />
         </LinearLayout>
 
         <!-- Divisor -->
-        <TextView
-            android:id="@+id/tvDivider"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/or_continue"
-            android:textSize="12sp"
-            android:textColor="#999999"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/llLogin" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp">
 
-        <!-- Botón Google -->
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="@color/border_gray" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="o continúa con"
+                android:textSize="12sp"
+                android:textColor="@color/dark_gray"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="@color/border_gray" />
+        </LinearLayout>
+
+        <!-- Botón Google Sign-In -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnGoogleRegister"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="24dp"
-            android:text="@string/register_google"
-            android:textSize="14sp"
+            android:text="Registrarme con Google"
             android:textColor="@android:color/black"
+            android:textSize="14sp"
             android:textAllCaps="false"
-            app:cornerRadius="8dp"
             app:icon="@drawable/ic_google"
             app:iconGravity="textStart"
             app:iconPadding="8dp"
             app:iconTint="@null"
-            app:strokeColor="#DDDDDD"
+            app:strokeColor="@color/border_gray"
             app:strokeWidth="1dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvDivider" />
+            app:cornerRadius="8dp"
+            android:layout_marginBottom="24dp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+    </LinearLayout>
 </ScrollView>

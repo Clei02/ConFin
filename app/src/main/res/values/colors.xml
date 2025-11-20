@@ -1,26 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Colores de ambos (fusionados sin duplicados) -->
+    <!-- Colores básicos -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Colores de la marca / Primary -->
+    <color name="primary">#2196F3</color>
+    <color name="primary_dark">#1976D2</color>
+    <color name="primary_light">#BBDEFB</color>
+    <color name="accent">#FF5722</color>
+
+    <!-- Colores de texto -->
+    <color name="text_primary_dark">#DE000000</color>
+    <color name="text_secondary">#8A000000</color>
+    <color name="text_secondary_dark">#8A000000</color>
+    <color name="text_primary_light">#FFFFFFFF</color>
+    <color name="text_secondary_light">#B3FFFFFF</color>
+
+    <!-- Colores de fondo -->
+    <color name="background_gray">#F5F5F5</color>
+    <color name="background_gray_light">#D3D3D3</color>
+    <color name="card_dark_background">#212121</color>
+    <color name="light_gray">#FFF5F5F5</color>
+
+    <!-- Colores de bordes y divisores -->
+    <color name="border_gray">#FFE0E0E0</color>
+    <color name="divider">#E0E0E0</color>
     <color name="gray">#999999</color>
     <color name="dark_gray">#666666</color>
-    <color name="light_gray">#FFF5F5F5</color>
-    <color name="border_gray">#FFE0E0E0</color>
     <color name="hint_gray">#FFAAAAAA</color>
+
+    <!-- Colores de inputs -->
     <color name="input_box_stroke">#CCCCCC</color>
     <color name="input_box_stroke_focused">#000000</color>
-    <color name="background_gray">#F5F5F5</color>
-    <color name="card_dark_background">#212121</color>
-    <color name="text_primary_dark">#DE000000</color>
-    <color name="text_secondary_dark">#8A000000</color>
+
+    <!-- Colores financieros -->
     <color name="green_income">#4CAF50</color>
-    <color name="text_primary_light">#FFFFFFFF</color>
-    <color name="text_secondary_light">#B3FFFFFF</color> <!-- Example, you might have this already -->
-
-
-    <!-- Add the missing color definition here -->
-    <color name="background_gray_light">#D3D3D3</color>
-
-    <!-- <color name="text_primary_dark">#FF212121</color> -->
+    <color name="red_expense">#F44336</color>
 </resources>

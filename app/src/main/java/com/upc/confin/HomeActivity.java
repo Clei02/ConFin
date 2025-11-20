@@ -1,138 +1,348 @@
-package com.upc.confin; // Reemplaza con tu package name
+package com.upc.confin;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.PopupMenu; // Importar PopupMenu
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView; // Importar BottomNavigationView
-import com.google.firebase.auth.FirebaseAuth; // Importar Firebase Auth
-
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 public class HomeActivity extends AppCompatActivity {
 
-    // --- Variables de la UI ---
-    private RecyclerView recyclerViewTransactions;
-    private BottomNavigationView bottomNavigation;
-    private ImageView ivProfileIcon; // Variable para el icono de perfil
+    private static final int REQUEST_CODE_PROFILE = 1001;
 
-    // --- Variables de Datos y Firebase ---
+    private RecyclerView recyclerViewTransactions;
     private TransactionAdapter transactionAdapter;
-    private List<Transaction> transactionList;
-    private FirebaseAuth mAuth; // Instancia de Firebase Authentication
+    private List<TransactionDisplay> transactionDisplayList;
+
+    private TextView textGreeting;
+    private TextView textMonthYear;
+    private TextView textSaldoAmount;
+    private TextView textIngresosAmount;
+    private TextView textGastosAmount;
+    private ImageView ivProfileIcon;
+
+    private DatabaseHelper dbHelper;
+    private Map<String, Category> categoryMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        // --- Inicializar Firebase Auth ---
-        mAuth = FirebaseAuth.getInstance();
+        // Verificar sesión
+        SharedPreferences prefs = getSharedPreferences("ConFinPrefs", MODE_PRIVATE);
+        String userId = prefs.getString("userId", null);
+        String userName = prefs.getString("userName", "Usuario");
 
-        // --- Inicializar Vistas ---
-        recyclerViewTransactions = findViewById(R.id.recycler_view_transactions);
-        bottomNavigation = findViewById(R.id.bottom_navigation_view);
-        ivProfileIcon = findViewById(R.id.iv_profile_icon); // Conectar el icono de perfil
+        if (userId == null) {
+            // No hay sesión, volver al login
+            Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
 
-        // --- Configurar Componentes ---
+        // Establecer usuario actual
+        dbHelper = DatabaseHelper.getInstance();
+        dbHelper.setCurrentUserId(userId);
+        categoryMap = new HashMap<>();
+
+        // Inicializar vistas
+        initViews();
+
+        // Mostrar nombre del usuario y fecha actual
+        displayUserInfo(userName);
+
+        // Configurar RecyclerView
         setupRecyclerView();
-        loadTransactionData();
-        setupNavigation(); // Método para la navegación inferior
-        setupProfileMenu(); // Nuevo método para el menú de perfil
+
+        // Cargar categorías primero, luego transacciones
+        loadCategories();
+
+        // Configurar FAB
+        com.google.android.material.floatingactionbutton.FloatingActionButton fab =
+                findViewById(R.id.fab);
+        fab.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeActivity.this, AgregarTransaccionActivity.class);
+            startActivity(intent);
+        });
+
+        // Configurar Bottom Navigation
+        setupBottomNavigation();
+
+        // Configurar botón de perfil
+        setupProfileButton();
     }
 
-    /**
-     * Configura el listener del icono de perfil para mostrar el menú.
-     */
-    private void setupProfileMenu() {
-        ivProfileIcon.setOnClickListener(view -> {
-            // 1. Crear el PopupMenu y anclarlo al icono
-            PopupMenu popup = new PopupMenu(this, ivProfileIcon);
+    private void initViews() {
+        recyclerViewTransactions = findViewById(R.id.recycler_view_transactions);
+        textGreeting = findViewById(R.id.text_greeting);
+        textMonthYear = findViewById(R.id.text_month_year);
+        textSaldoAmount = findViewById(R.id.text_saldo_amount);
+        textIngresosAmount = findViewById(R.id.text_ingresos_amount);
+        textGastosAmount = findViewById(R.id.text_gastos_amount);
+        ivProfileIcon = findViewById(R.id.iv_profile_icon);
+    }
 
-            // 2. Inflar (cargar) el menú que creamos (profile_menu.xml)
-            popup.getMenuInflater().inflate(R.menu.profile_menu, popup.getMenu());
+    private void displayUserInfo(String userName) {
+        // Mostrar saludo con el nombre del usuario
+        textGreeting.setText("¡Hola, " + userName + "!");
 
-            // 3. Definir la acción al hacer clic en una opción
-            popup.setOnMenuItemClickListener(menuItem -> {
-                if (menuItem.getItemId() == R.id.menu_sign_out) {
-                    // Si el usuario selecciona "Cerrar Sesión", llamamos al método
-                    signOut();
-                    return true;
+        // Mostrar mes y año actual
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM yyyy", new Locale("es", "ES"));
+        String currentMonthYear = monthFormat.format(calendar.getTime());
+
+        // Capitalizar primera letra
+        currentMonthYear = currentMonthYear.substring(0, 1).toUpperCase() + currentMonthYear.substring(1);
+
+        textMonthYear.setText(currentMonthYear);
+    }
+
+    private void setupRecyclerView() {
+        transactionDisplayList = new ArrayList<>();
+        transactionAdapter = new TransactionAdapter(this, transactionDisplayList);
+        recyclerViewTransactions.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewTransactions.setAdapter(transactionAdapter);
+    }
+
+    private void setupProfileButton() {
+        ivProfileIcon.setOnClickListener(v -> showProfileBottomSheet());
+    }
+
+    private void showProfileBottomSheet() {
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+        View bottomSheetView = getLayoutInflater().inflate(R.layout.bottom_sheet_profile, null);
+        bottomSheetDialog.setContentView(bottomSheetView);
+
+        // Configurar opción de ver perfil
+        LinearLayout optionViewProfile = bottomSheetView.findViewById(R.id.option_view_profile);
+        optionViewProfile.setOnClickListener(v -> {
+            bottomSheetDialog.dismiss();
+            Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
+            startActivityForResult(intent, REQUEST_CODE_PROFILE); // 👈 CAMBIO AQUÍ
+        });
+
+        // Configurar opción de cerrar sesión
+        LinearLayout optionSignOut = bottomSheetView.findViewById(R.id.option_sign_out);
+        optionSignOut.setOnClickListener(v -> {
+            bottomSheetDialog.dismiss();
+            signOut();
+        });
+
+        bottomSheetDialog.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE_PROFILE && resultCode == RESULT_OK) {
+            // El usuario actualizó su perfil, recargar datos
+            reloadUserData();
+        }
+    }
+
+    private void reloadUserData() {
+        SharedPreferences prefs = getSharedPreferences("ConFinPrefs", MODE_PRIVATE);
+        String userName = prefs.getString("userName", "Usuario");
+
+        // Actualizar el saludo
+        textGreeting.setText("¡Hola, " + userName + "!");
+
+        // Opcional: Mostrar mensaje
+        Toast.makeText(this, "Perfil actualizado correctamente", Toast.LENGTH_SHORT).show();
+    }
+
+    private void signOut() {
+        // Limpiar sesión
+        SharedPreferences prefs = getSharedPreferences("ConFinPrefs", MODE_PRIVATE);
+        prefs.edit().clear().apply();
+
+        // Limpiar usuario actual en DatabaseHelper
+        dbHelper.setCurrentUserId(null);
+
+        // Mostrar mensaje
+        Toast.makeText(this, "Sesión cerrada", Toast.LENGTH_SHORT).show();
+
+        // Ir al login
+        Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
+    }
+
+    private void loadCategories() {
+        dbHelper.loadCategories(new DatabaseHelper.OnCategoriesLoadedListener() {
+            @Override
+            public void onCategoriesLoaded(List<Category> categories) {
+                for (Category category : categories) {
+                    categoryMap.put(category.getId(), category);
                 }
-                return false;
-            });
+                loadTransactions();
+            }
 
-            // 4. Mostrar el menú
-            popup.show();
+            @Override
+            public void onError(String error) {
+                Toast.makeText(HomeActivity.this,
+                        "Error cargando categorías: " + error,
+                        Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
-    /**
-     * Cierra la sesión del usuario en Firebase y lo regresa al Login.
-     */
-    private void signOut() {
-        // Cierra la sesión en Firebase Authentication
-        mAuth.signOut();
+    private void loadTransactions() {
+        dbHelper.loadTransactions(new DatabaseHelper.OnTransactionsLoadedListener() {
+            @Override
+            public void onTransactionsLoaded(List<Transaction> transactions) {
+                transactionDisplayList.clear();
 
-        // Prepara el Intent para volver a la pantalla de Login (MainActivity)
-        Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+                double totalIngresos = 0;
+                double totalGastos = 0;
 
-        // Estas "flags" son MUY IMPORTANTES. Limpian el historial de navegación
-        // para que el usuario no pueda "volver" a HomeActivity con el botón de atrás.
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                // Obtener mes y año actual
+                Calendar calendar = Calendar.getInstance();
+                int currentMonth = calendar.get(Calendar.MONTH);
+                int currentYear = calendar.get(Calendar.YEAR);
 
-        startActivity(intent);
-        finish(); // Cierra esta actividad (HomeActivity)
+                for (Transaction transaction : transactions) {
+                    // Filtrar solo transacciones del mes actual
+                    Calendar transactionDate = Calendar.getInstance();
+                    transactionDate.setTimeInMillis(transaction.getFecha());
+
+                    int transactionMonth = transactionDate.get(Calendar.MONTH);
+                    int transactionYear = transactionDate.get(Calendar.YEAR);
+
+                    if (transactionMonth == currentMonth && transactionYear == currentYear) {
+                        Category category = categoryMap.get(transaction.getCategoriaId());
+
+                        if (category != null) {
+                            int iconResId = category.getIconoResId(HomeActivity.this);
+                            String dateStr = formatDate(transaction.getFecha());
+                            String detail = category.getNombre() + " • " + dateStr;
+
+                            // Determinar el tipo basado en tipoId
+                            String tipoNombre = transaction.getTipoId().equals(DatabaseHelper.TIPO_INGRESO_ID)
+                                    ? "INGRESO" : "GASTO";
+
+                            if (transactionDisplayList.size() < 5) {
+                                transactionDisplayList.add(new TransactionDisplay(
+                                        iconResId,
+                                        transaction.getDescripcion(),
+                                        detail,
+                                        transaction.getMonto(),
+                                        tipoNombre
+                                ));
+                            }
+
+                            // Calcular totales solo del mes actual
+                            if (transaction.getTipoId().equals(DatabaseHelper.TIPO_INGRESO_ID)) {
+                                totalIngresos += transaction.getMonto();
+                            } else {
+                                totalGastos += transaction.getMonto();
+                            }
+                        }
+                    }
+                }
+
+                updateBalances(totalIngresos, totalGastos);
+                transactionAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onError(String error) {
+                Toast.makeText(HomeActivity.this,
+                        "Error cargando transacciones: " + error,
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    /**
-     * Configura la barra de navegación inferior (BottomNavigationView).
-     */
-    private void setupNavigation() {
-        // Marca "Resumen" como el ítem seleccionado.
-        bottomNavigation.setSelectedItemId(R.id.nav_resumen);
+    private void updateBalances(double ingresos, double gastos) {
+        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(new Locale("es", "CO"));
 
-        // Listener para los clics en el menú.
-        bottomNavigation.setOnItemSelectedListener(item -> {
+        double saldo = ingresos - gastos;
+
+        textSaldoAmount.setText(currencyFormat.format(saldo));
+        textIngresosAmount.setText("+" + currencyFormat.format(ingresos));
+        textGastosAmount.setText("-" + currencyFormat.format(gastos));
+    }
+
+    private String formatDate(long timestamp) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM", new Locale("es", "CO"));
+        return sdf.format(new Date(timestamp));
+    }
+
+    private void setupBottomNavigation() {
+        com.google.android.material.bottomnavigation.BottomNavigationView bottomNav =
+                findViewById(R.id.bottom_navigation_view);
+
+        bottomNav.setSelectedItemId(R.id.nav_resumen);
+
+        bottomNav.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
+
             if (itemId == R.id.nav_resumen) {
-                // Ya estamos aquí, no hacer nada.
                 return true;
             } else if (itemId == R.id.nav_gastos) {
                 startActivity(new Intent(this, ExpensesActivity.class));
+                finish();
+                return true;
+            } else if (itemId == R.id.nav_historial) {
+                startActivity(new Intent(this, HistorialActivity.class));
+                finish();
                 return true;
             } else if (itemId == R.id.nav_categorias) {
                 startActivity(new Intent(this, CategoriasActivity.class));
+                finish();
                 return true;
             }
             return false;
         });
     }
 
-    /**
-     * Configura el RecyclerView (tu código original).
-     */
-    private void setupRecyclerView() {
-        transactionList = new ArrayList<>();
-        transactionAdapter = new TransactionAdapter(this, transactionList);
-        recyclerViewTransactions.setLayoutManager(new LinearLayoutManager(this));
-        recyclerViewTransactions.setAdapter(transactionAdapter);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadCategories();
     }
 
-    /**
-     * Carga los datos de ejemplo (tu código original).
-     */
-    private void loadTransactionData() {
-        transactionList.add(new Transaction(R.drawable.ic_shopping_cart, "Supermercado Central", "Alimentación • 15 Ene", 85.50));
-        transactionList.add(new Transaction(R.drawable.ic_local_gas_station, "Gasolinera Shell", "Transporte • 14 Ene", 45.00));
-        transactionList.add(new Transaction(R.drawable.ic_live_tv, "Netflix", "Entretenimiento • 13 Ene", 12.99));
-        transactionList.add(new Transaction(R.drawable.ic_restaurant, "Restaurante Italiano", "Restaurantes • 12 Ene", 67.80));
-        transactionAdapter.notifyDataSetChanged();
+    // Clase interna para mostrar transacciones
+    public static class TransactionDisplay {
+        private final int icon;
+        private final String name;
+        private final String detail;
+        private final double amount;
+        private final String tipo;
+
+        public TransactionDisplay(int icon, String name, String detail, double amount, String tipo) {
+            this.icon = icon;
+            this.name = name;
+            this.detail = detail;
+            this.amount = amount;
+            this.tipo = tipo;
+        }
+
+        public int getIcon() { return icon; }
+        public String getName() { return name; }
+        public String getDetail() { return detail; }
+        public double getAmount() { return amount; }
+        public String getTipo() { return tipo; }
     }
 }

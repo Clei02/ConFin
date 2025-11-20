@@ -13,7 +13,20 @@
           "package_name": "com.upc.confin"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1082538631659-oi036tr6lomq9q788bh3cdptpp6mrvno.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.upc.confin",
+            "certificate_hash": "67dcfce9d13ad71535efa0a17e538bf25ac430b8"
+          }
+        },
+        {
+          "client_id": "1082538631659-2bv051jcgkk5nlcm12tqeg68a5ak51ig.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDD95qXsJy0aYIys9dFWeEdt5orIPT2aFY"
@@ -21,7 +34,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1082538631659-2bv051jcgkk5nlcm12tqeg68a5ak51ig.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

@@ -1,177 +1,306 @@
 package com.upc.confin;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
-import android.widget.ProgressBar; // Importante
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.view.View;
-
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    // --- Componentes de la UI (IDs de tu XML) ---
-    private TextInputEditText etName, etUsername, etPassword, etConfirmPassword;
-    private MaterialButton btnRegister;
-    private TextView tvLogin;
-    // private ProgressBar progressBar; // Descomenta si añades un ProgressBar a tu XML
+    private static final String TAG = "RegisterActivity";
+    private static final int RC_GOOGLE_SIGN_IN = 9001;
 
-    // --- Firebase ---
+    private EditText etName, etUsername, etEmail, etPassword, etConfirmPassword;
+    private Button btnRegister, btnGoogleRegister;
+    private TextView tvLogin;
+
+    private DatabaseHelper dbHelper;
     private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase;
+    private GoogleSignInClient mGoogleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register); // Tu archivo XML
+        setContentView(R.layout.activity_register);
 
-        // --- Inicializar Firebase ---
-        mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference(); // Apunta a la raíz de la BD
-
-        // --- Enlazar Vistas ---
         initializeViews();
-
-        // --- Configurar Listeners ---
         setupListeners();
+
+        dbHelper = DatabaseHelper.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+
+        // Configurar Google Sign-In
+        configureGoogleSignIn();
+    }
+
+    private void configureGoogleSignIn() {
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // Limpiar la sesión de Google para permitir elegir cuenta
+        if (mGoogleSignInClient != null) {
+            mGoogleSignInClient.signOut();
+        }
     }
 
     private void initializeViews() {
-        // Conectamos las variables con los IDs de tu activity_register.xml
         etName = findViewById(R.id.etName);
-        etUsername = findViewById(R.id.etUsername); // Este será el email
+        etUsername = findViewById(R.id.etUsername);
+        etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
         btnRegister = findViewById(R.id.btnRegister);
+        btnGoogleRegister = findViewById(R.id.btnGoogleRegister);
         tvLogin = findViewById(R.id.tvLogin);
     }
 
     private void setupListeners() {
-        // Listener para el botón de registrar
-        btnRegister.setOnClickListener(v -> validateAndRegister());
-
-        // Listener para el texto "Iniciar sesión"
-        tvLogin.setOnClickListener(v -> {
-            // Cierra esta actividad y vuelve a la anterior (MainActivity)
-            finish();
-        });
+        btnRegister.setOnClickListener(v -> handleRegister());
+        btnGoogleRegister.setOnClickListener(v -> handleGoogleRegister());
+        tvLogin.setOnClickListener(v -> navigateToLogin());
     }
 
-    /**
-     * Valida todos los campos de entrada antes de intentar el registro.
-     */
-    private void validateAndRegister() {
-        // Obtener los valores de los campos
-        String nombre = etName.getText().toString().trim();
-        String email = etUsername.getText().toString().trim(); // Usamos 'etUsername' para el email
-        String password = etPassword.getText().toString().trim();
-        String confirmPassword = etConfirmPassword.getText().toString().trim();
+    private void handleRegister() {
+        String name = etName.getText().toString().trim();
+        String username = etUsername.getText().toString().trim();
+        String email = etEmail.getText().toString().trim();
+        String password = etPassword.getText().toString();
+        String confirmPassword = etConfirmPassword.getText().toString();
 
-        // --- Validaciones ---
-        if (TextUtils.isEmpty(nombre)) {
-            etName.setError("El nombre es requerido.");
-            etName.requestFocus();
+        if (!validateInputs(name, username, email, password, confirmPassword)) {
             return;
         }
 
-        if (TextUtils.isEmpty(email)) {
-            etUsername.setError("El correo es requerido.");
-            etUsername.requestFocus();
-            return;
+        btnRegister.setEnabled(false);
+        btnRegister.setText("Registrando...");
+
+        registerUser(name, username, email, password);
+    }
+
+    private boolean validateInputs(String name, String username, String email,
+                                   String password, String confirmPassword) {
+        if (name.isEmpty()) {
+            showError("El nombre no puede estar vacío");
+            return false;
+        }
+
+        if (name.length() < 3) {
+            showError("El nombre debe tener al menos 3 caracteres");
+            return false;
+        }
+
+        if (username.isEmpty()) {
+            showError("El usuario no puede estar vacío");
+            return false;
+        }
+
+        if (username.length() < 4) {
+            showError("El usuario debe tener al menos 4 caracteres");
+            return false;
+        }
+
+        if (email.isEmpty()) {
+            showError("El email no puede estar vacío");
+            return false;
         }
 
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            etUsername.setError("Ingresa un correo válido.");
-            etUsername.requestFocus();
-            return;
+            showError("Ingresa un email válido");
+            return false;
         }
 
-        if (TextUtils.isEmpty(password)) {
-            etPassword.setError("La contraseña es requerida.");
-            etPassword.requestFocus();
-            return;
+        if (password.isEmpty()) {
+            showError("La contraseña no puede estar vacía");
+            return false;
         }
 
         if (password.length() < 6) {
-            etPassword.setError("La contraseña debe tener al menos 6 caracteres.");
-            etPassword.requestFocus();
-            return;
-        }
-
-        if (TextUtils.isEmpty(confirmPassword)) {
-            etConfirmPassword.setError("Confirma tu contraseña.");
-            etConfirmPassword.requestFocus();
-            return;
+            showError("La contraseña debe tener al menos 6 caracteres");
+            return false;
         }
 
         if (!password.equals(confirmPassword)) {
-            etConfirmPassword.setError("Las contraseñas no coinciden.");
-            etConfirmPassword.requestFocus();
-            return;
+            showError("Las contraseñas no coinciden");
+            return false;
         }
 
-        // Si todas las validaciones son correctas, procedemos a registrar en Firebase
-        registerUserInFirebase(nombre, email, password);
+        return true;
     }
 
-    /**
-     * Paso 1: Crea el usuario en Firebase Authentication.
-     * Paso 2: Si es exitoso, guarda los datos en Realtime Database.
-     */
-    private void registerUserInFirebase(String nombre, String email, String password) {
-        // progressBar.setVisibility(View.VISIBLE); // Mostrar ProgressBar
-
-        // --- PASO 1: CREAR USUARIO EN FIREBASE AUTH ---
+    private void registerUser(String name, String username, String email, String password) {
+        // Primero registrar en Firebase Authentication
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        // El usuario fue creado exitosamente en Authentication
                         FirebaseUser firebaseUser = mAuth.getCurrentUser();
-                        String userId = firebaseUser.getUid();
-
-                        // --- PASO 2: GUARDAR DATOS EN REALTIME DATABASE ---
-                        User user = new User(nombre, email);
-
-                        // Escribimos en la base de datos bajo el nodo "usuarios" y el ID único del usuario
-                        mDatabase.child("usuarios").child(userId).setValue(user)
-                                .addOnCompleteListener(dbTask -> {
-                                    // progressBar.setVisibility(View.GONE); // Ocultar ProgressBar
-                                    if (dbTask.isSuccessful()) {
-                                        // Éxito en Auth y Realtime DB
-                                        Toast.makeText(RegisterActivity.this, "Registro exitoso.", Toast.LENGTH_SHORT).show();
-                                        navigateToHome();
-                                    } else {
-                                        // Falló al escribir en la BD
-                                        Toast.makeText(RegisterActivity.this, "Error al guardar datos: " + dbTask.getException().getMessage(), Toast.LENGTH_LONG).show();
-                                    }
-                                });
-
+                        if (firebaseUser != null) {
+                            // Ahora guardar en Realtime Database
+                            String userId = firebaseUser.getUid();
+                            saveUserToDatabase(userId, name, username, email, password);
+                        }
                     } else {
-                        // Falló la creación en Auth (ej. el correo ya existe)
-                        // progressBar.setVisibility(View.GONE); // Ocultar ProgressBar
-                        Toast.makeText(RegisterActivity.this, "Error en el registro: " + task.getException().getMessage(),
-                                Toast.LENGTH_LONG).show();
+                        btnRegister.setEnabled(true);
+                        btnRegister.setText("Registrarme");
+                        String errorMsg = task.getException() != null ?
+                                task.getException().getMessage() : "Error al registrar";
+                        showError(errorMsg);
                     }
                 });
     }
 
-    /**
-     * Navega a la pantalla principal y limpia el historial de navegación.
-     */
-    private void navigateToHome() {
-        Intent intent = new Intent(RegisterActivity.this, HomeActivity.class); // Asumo que tu principal es HomeActivity
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+    private void saveUserToDatabase(String userId, String name, String username,
+                                    String email, String password) {
+        dbHelper.registerUser(name, username, email, password,
+                new DatabaseHelper.OnOperationCompleteListener() {
+                    @Override
+                    public void onSuccess() {
+                        showSuccess("✅ Cuenta creada exitosamente");
+
+                        // Guardar sesión
+                        saveUserSession(userId, name, email);
+
+                        // Ir al Dashboard
+                        navigateToDashboard();
+                    }
+
+                    @Override
+                    public void onError(String error) {
+                        btnRegister.setEnabled(true);
+                        btnRegister.setText("Registrarme");
+                        showError("❌ Error: " + error);
+                    }
+                });
+    }
+
+    private void handleGoogleRegister() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_GOOGLE_SIGN_IN);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RC_GOOGLE_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                if (account != null) {
+                    firebaseAuthWithGoogle(account.getIdToken());
+                }
+            } catch (ApiException e) {
+                Log.w(TAG, "Google sign in failed", e);
+                showError("Error al iniciar sesión con Google");
+            }
+        }
+    }
+
+    private void firebaseAuthWithGoogle(String idToken) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                        if (firebaseUser != null) {
+                            String userId = firebaseUser.getUid();
+                            String name = firebaseUser.getDisplayName();
+                            String email = firebaseUser.getEmail();
+                            String photoUrl = firebaseUser.getPhotoUrl() != null ?
+                                    firebaseUser.getPhotoUrl().toString() : null;
+
+                            // Verificar si el usuario ya existe
+                            dbHelper.getUserById(userId, new DatabaseHelper.OnUserLoadedListener() {
+                                @Override
+                                public void onUserLoaded(User user) {
+                                    // Usuario ya existe, solo hacer login
+                                    saveUserSession(userId, name, email);
+                                    navigateToDashboard();
+                                }
+
+                                @Override
+                                public void onUserNotFound() {
+                                    // Usuario nuevo, registrar en la base de datos
+                                    dbHelper.registerUserWithGoogle(userId, name, email, photoUrl,
+                                            new DatabaseHelper.OnOperationCompleteListener() {
+                                                @Override
+                                                public void onSuccess() {
+                                                    showSuccess("✅ Registro exitoso con Google");
+                                                    saveUserSession(userId, name, email);
+                                                    navigateToDashboard();
+                                                }
+
+                                                @Override
+                                                public void onError(String error) {
+                                                    showError("Error al registrar: " + error);
+                                                }
+                                            });
+                                }
+
+                                @Override
+                                public void onError(String error) {
+                                    showError("Error al verificar usuario: " + error);
+                                }
+                            });
+                        }
+                    } else {
+                        showError("Error en autenticación con Google");
+                    }
+                });
+    }
+
+    private void saveUserSession(String userId, String userName, String userEmail) {
+        SharedPreferences prefs = getSharedPreferences("ConFinPrefs", MODE_PRIVATE);
+        prefs.edit()
+                .putString("userId", userId)
+                .putString("userName", userName)
+                .putString("userEmail", userEmail)
+                .apply();
+
+        dbHelper.setCurrentUserId(userId);
+    }
+
+    private void navigateToLogin() {
+        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private void navigateToDashboard() {
+        Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
+    }
+
+    private void showError(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void showSuccess(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

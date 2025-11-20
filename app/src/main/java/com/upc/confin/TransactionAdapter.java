@@ -1,4 +1,4 @@
-package com.upc.confin; // Reemplaza con tu package name
+package com.upc.confin;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,10 +13,10 @@ import java.util.Locale;
 
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.TransactionViewHolder> {
 
-    private final List<Transaction> transactionList;
+    private final List<HomeActivity.TransactionDisplay> transactionList;
     private final Context context;
 
-    public TransactionAdapter(Context context, List<Transaction> transactionList) {
+    public TransactionAdapter(Context context, List<HomeActivity.TransactionDisplay> transactionList) {
         this.context = context;
         this.transactionList = transactionList;
     }
@@ -30,15 +30,23 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull TransactionViewHolder holder, int position) {
-        Transaction transaction = transactionList.get(position);
+        HomeActivity.TransactionDisplay transaction = transactionList.get(position);
 
         holder.iconCategory.setImageResource(transaction.getIcon());
         holder.textTransactionName.setText(transaction.getName());
         holder.textTransactionDetail.setText(transaction.getDetail());
 
-        // Formatea el monto para mostrarlo con el signo y dos decimales
-        String formattedAmount = String.format(Locale.getDefault(), "-$%.2f", transaction.getAmount());
+        // Formatear según el tipo (INGRESO o GASTO)
+        String sign = transaction.getTipo().equals("INGRESO") ? "+" : "-";
+        String formattedAmount = String.format(Locale.getDefault(),
+                "%s$%.2f", sign, transaction.getAmount());
         holder.textAmount.setText(formattedAmount);
+
+        // Color según el tipo
+        int color = transaction.getTipo().equals("INGRESO")
+                ? context.getResources().getColor(R.color.green_income)
+                : context.getResources().getColor(R.color.text_primary_light);
+        holder.textAmount.setTextColor(color);
     }
 
     @Override
