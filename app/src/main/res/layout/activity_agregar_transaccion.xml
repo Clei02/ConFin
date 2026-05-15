@@ -4,38 +4,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#FFFFFF">
+    android:background="@color/background_white">
 
-    <!-- Toolbar -->
+    <!-- Toolbar minimalista -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:paddingStart="8dp"
+        android:paddingStart="4dp"
         android:paddingEnd="16dp"
-        android:elevation="2dp"
-        android:background="#FFFFFF">
+        android:background="@color/background_white">
 
         <ImageButton
             android:id="@+id/btnBack"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_back"
-            android:contentDescription="Volver" />
+            app:tint="@color/charcoal_brown"
+            android:contentDescription="@string/desc_volver" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Agregar Transacción"
-            android:textSize="20sp"
-            android:textColor="#000000"
+            android:text="@string/add_transaction_title"
+            android:textSize="18sp"
+            android:textColor="@color/charcoal_brown"
             android:textStyle="bold"
             android:layout_marginStart="8dp" />
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider_light"/>
 
     <!-- Formulario -->
     <ScrollView
@@ -54,9 +59,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tipo"
+                android:text="@string/label_type"
                 android:textSize="14sp"
-                android:textColor="#666666"
+                android:textColor="@color/charcoal_brown"
                 android:layout_marginBottom="8dp" />
 
             <Spinner
@@ -74,9 +79,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Descripción"
+                android:text="@string/label_description"
                 android:textSize="14sp"
-                android:textColor="#666666"
+                android:textColor="@color/charcoal_brown"
                 android:layout_marginBottom="8dp" />
 
             <EditText
@@ -84,12 +89,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:background="@drawable/edittext_background"
-                android:hint="Ej. Cena con amigos"
-                android:textColorHint="#AAAAAA"
+                android:hint="@string/hint_transaction_desc"
+                android:textColorHint="@color/gray"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:textSize="16sp"
-                android:textColor="#000000"
+                android:textColor="@color/charcoal_brown"
                 android:inputType="text"
                 android:layout_marginBottom="24dp" />
 
@@ -97,9 +102,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Monto"
+                android:text="@string/label_amount"
                 android:textSize="14sp"
-                android:textColor="#666666"
+                android:textColor="@color/charcoal_brown"
                 android:layout_marginBottom="8dp" />
 
             <EditText
@@ -107,12 +112,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:background="@drawable/edittext_background"
-                android:hint="$ 0.00"
-                android:textColorHint="#AAAAAA"
+                android:hint="@string/hint_amount"
+                android:textColorHint="@color/gray"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:textSize="16sp"
-                android:textColor="#000000"
+                android:textColor="@color/charcoal_brown"
                 android:inputType="numberDecimal"
                 android:layout_marginBottom="24dp" />
 
@@ -120,9 +125,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Categoría"
+                android:text="@string/label_category"
                 android:textSize="14sp"
-                android:textColor="#666666"
+                android:textColor="@color/charcoal_brown"
                 android:layout_marginBottom="8dp" />
 
             <Spinner
@@ -140,9 +145,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Fecha"
+                android:text="@string/label_date"
                 android:textSize="14sp"
-                android:textColor="#666666"
+                android:textColor="@color/charcoal_brown"
                 android:layout_marginBottom="8dp" />
 
             <RelativeLayout
@@ -155,12 +160,12 @@
                     android:id="@+id/etFecha"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="mm/dd/yyyy"
-                    android:textColorHint="#AAAAAA"
+                    android:hint="@string/hint_date"
+                    android:textColorHint="@color/gray"
                     android:paddingStart="16dp"
                     android:paddingEnd="48dp"
                     android:textSize="16sp"
-                    android:textColor="#000000"
+                    android:textColor="@color/charcoal_brown"
                     android:focusable="false"
                     android:clickable="true"
                     android:inputType="none"
@@ -170,6 +175,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_calendar"
+                    app:tint="@color/ocean_blue"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="16dp"
@@ -187,14 +193,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
-        android:background="#FFFFFF">
+        android:background="@color/ash_grey_light">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnCancelar"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="Cancelar"
-            android:textColor="#000000"
+            android:text="@string/btn_cancelar"
+            android:textColor="@color/charcoal_brown"
             android:textSize="16sp"
             android:textAllCaps="false"
             android:background="@drawable/button_cancelar_background"
@@ -204,8 +210,8 @@
             android:id="@+id/btnGuardar"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="Guardar"
-            android:textColor="#FFFFFF"
+            android:text="@string/btn_guardar"
+            android:textColor="@color/white"
             android:textSize="16sp"
             android:textAllCaps="false"
             android:background="@drawable/button_guardar_background" />

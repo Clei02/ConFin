@@ -58,9 +58,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Verificar si ya hay sesión iniciada
         checkExistingSession();
-
-        // Inicializar datos por defecto
-        initializeDefaultData();
     }
 
     private void configureGoogleSignIn() {
@@ -88,44 +85,6 @@ public class MainActivity extends AppCompatActivity {
             dbHelper.setCurrentUserId(userId);
             navigateToDashboard();
         }
-    }
-
-    private void initializeDefaultData() {
-        dbHelper.initializeDefaultTypes(new DatabaseHelper.OnOperationCompleteListener() {
-            @Override
-            public void onSuccess() {
-                Log.d(TAG, "Tipos inicializados");
-
-                dbHelper.loadCategories(new DatabaseHelper.OnCategoriesLoadedListener() {
-                    @Override
-                    public void onCategoriesLoaded(java.util.List<Category> categories) {
-                        if (categories.isEmpty()) {
-                            dbHelper.createDefaultCategories(new DatabaseHelper.OnOperationCompleteListener() {
-                                @Override
-                                public void onSuccess() {
-                                    Log.d(TAG, "Categorías por defecto creadas");
-                                }
-
-                                @Override
-                                public void onError(String error) {
-                                    Log.e(TAG, "Error creando categorías: " + error);
-                                }
-                            });
-                        }
-                    }
-
-                    @Override
-                    public void onError(String error) {
-                        Log.e(TAG, "Error verificando categorías: " + error);
-                    }
-                });
-            }
-
-            @Override
-            public void onError(String error) {
-                Log.e(TAG, "Error inicializando tipos: " + error);
-            }
-        });
     }
 
     private void initializeViews() {
@@ -175,11 +134,28 @@ public class MainActivity extends AppCompatActivity {
                             dbHelper.getUserById(userId, new DatabaseHelper.OnUserLoadedListener() {
                                 @Override
                                 public void onUserLoaded(User user) {
-                                    saveUserSession(userId, user.getNombre(), user.getEmail());
-                                    Toast.makeText(MainActivity.this,
-                                            "¡Bienvenido, " + user.getNombre() + "!",
-                                            Toast.LENGTH_SHORT).show();
-                                    navigateToDashboard();
+                                    // Verificar y crear categorías si no existen
+                                    dbHelper.setCurrentUserId(userId);
+                                    dbHelper.initializeUserCategories(userId, new DatabaseHelper.OnOperationCompleteListener() {
+                                        @Override
+                                        public void onSuccess() {
+                                            saveUserSession(userId, user.getNombre(), user.getEmail());
+                                            Toast.makeText(MainActivity.this,
+                                                    "¡Bienvenido, " + user.getNombre() + "!",
+                                                    Toast.LENGTH_SHORT).show();
+                                            navigateToDashboard();
+                                        }
+
+                                        @Override
+                                        public void onError(String error) {
+                                            // Continuar aunque falle la creación de categorías
+                                            saveUserSession(userId, user.getNombre(), user.getEmail());
+                                            Toast.makeText(MainActivity.this,
+                                                    "¡Bienvenido, " + user.getNombre() + "!",
+                                                    Toast.LENGTH_SHORT).show();
+                                            navigateToDashboard();
+                                        }
+                                    });
                                 }
 
                                 @Override
@@ -266,12 +242,27 @@ public class MainActivity extends AppCompatActivity {
                             dbHelper.getUserById(userId, new DatabaseHelper.OnUserLoadedListener() {
                                 @Override
                                 public void onUserLoaded(User user) {
-                                    // Usuario ya existe, hacer login
-                                    saveUserSession(userId, user.getNombre(), user.getEmail());
-                                    Toast.makeText(MainActivity.this,
-                                            "¡Bienvenido de nuevo, " + user.getNombre() + "!",
-                                            Toast.LENGTH_SHORT).show();
-                                    navigateToDashboard();
+                                    // Usuario ya existe, verificar categorías y hacer login
+                                    dbHelper.setCurrentUserId(userId);
+                                    dbHelper.initializeUserCategories(userId, new DatabaseHelper.OnOperationCompleteListener() {
+                                        @Override
+                                        public void onSuccess() {
+                                            saveUserSession(userId, user.getNombre(), user.getEmail());
+                                            Toast.makeText(MainActivity.this,
+                                                    "¡Bienvenido de nuevo, " + user.getNombre() + "!",
+                                                    Toast.LENGTH_SHORT).show();
+                                            navigateToDashboard();
+                                        }
+
+                                        @Override
+                                        public void onError(String error) {
+                                            saveUserSession(userId, user.getNombre(), user.getEmail());
+                                            Toast.makeText(MainActivity.this,
+                                                    "¡Bienvenido de nuevo, " + user.getNombre() + "!",
+                                                    Toast.LENGTH_SHORT).show();
+                                            navigateToDashboard();
+                                        }
+                                    });
                                 }
 
                                 @Override
@@ -281,11 +272,27 @@ public class MainActivity extends AppCompatActivity {
                                             new DatabaseHelper.OnOperationCompleteListener() {
                                                 @Override
                                                 public void onSuccess() {
-                                                    saveUserSession(userId, name, email);
-                                                    Toast.makeText(MainActivity.this,
-                                                            "¡Bienvenido, " + name + "!",
-                                                            Toast.LENGTH_SHORT).show();
-                                                    navigateToDashboard();
+                                                    // Crear categorías por defecto
+                                                    dbHelper.setCurrentUserId(userId);
+                                                    dbHelper.initializeUserCategories(userId, new DatabaseHelper.OnOperationCompleteListener() {
+                                                        @Override
+                                                        public void onSuccess() {
+                                                            saveUserSession(userId, name, email);
+                                                            Toast.makeText(MainActivity.this,
+                                                                    "¡Bienvenido, " + name + "!",
+                                                                    Toast.LENGTH_SHORT).show();
+                                                            navigateToDashboard();
+                                                        }
+
+                                                        @Override
+                                                        public void onError(String error) {
+                                                            saveUserSession(userId, name, email);
+                                                            Toast.makeText(MainActivity.this,
+                                                                    "¡Bienvenido, " + name + "!",
+                                                                    Toast.LENGTH_SHORT).show();
+                                                            navigateToDashboard();
+                                                        }
+                                                    });
                                                 }
 
                                                 @Override

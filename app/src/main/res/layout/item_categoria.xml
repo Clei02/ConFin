@@ -18,7 +18,7 @@
             android:id="@+id/tvNombreCategoria"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Comida"
+            android:text="@string/item_category_name"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/black" />
@@ -27,7 +27,7 @@
             android:id="@+id/tvTipoCategoria"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tipo: Gasto"
+            android:text="@string/item_category_type"
             android:textSize="14sp"
             android:textColor="@color/gray" />
     </LinearLayout>

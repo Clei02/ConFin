@@ -7,7 +7,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DatabaseHelper {
 
@@ -251,10 +255,22 @@ public class DatabaseHelper {
                 .addOnFailureListener(e -> listener.onError(e.getMessage()));
     }
 
-    // ==================== CATEGORÍAS (COMPARTIDAS) ====================
+    // ==================== CATEGORÍAS (POR USUARIO) ====================
+
+    private String getUserCategoriesPath() {
+        if (currentUserId == null) {
+            return "categorias";
+        }
+        return "categorias/" + currentUserId;
+    }
 
     public void loadCategories(OnCategoriesLoadedListener listener) {
-        database.child("categorias")
+        if (currentUserId == null) {
+            listener.onError("Usuario no autenticado");
+            return;
+        }
+
+        database.child("categorias").child(currentUserId)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {
@@ -277,7 +293,12 @@ public class DatabaseHelper {
     }
 
     public void loadCategoriesByTypeId(String tipoId, OnCategoriesLoadedListener listener) {
-        database.child("categorias")
+        if (currentUserId == null) {
+            listener.onError("Usuario no autenticado");
+            return;
+        }
+
+        database.child("categorias").child(currentUserId)
                 .orderByChild("tipoId").equalTo(tipoId)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -301,7 +322,12 @@ public class DatabaseHelper {
     }
 
     public void addCategory(Category category, OnOperationCompleteListener listener) {
-        String categoryId = database.child("categorias").push().getKey();
+        if (currentUserId == null) {
+            listener.onError("Usuario no autenticado");
+            return;
+        }
+
+        String categoryId = database.child("categorias").child(currentUserId).push().getKey();
 
         if (categoryId == null) {
             listener.onError("Error al generar ID de categoría");
@@ -310,7 +336,7 @@ public class DatabaseHelper {
 
         category.setId(categoryId);
 
-        database.child("categorias").child(categoryId)
+        database.child("categorias").child(currentUserId).child(categoryId)
                 .setValue(category)
                 .addOnSuccessListener(aVoid -> {
                     Log.d(TAG, "Categoría agregada exitosamente");
@@ -323,7 +349,12 @@ public class DatabaseHelper {
     }
 
     public void getCategoryById(String categoryId, OnCategoriesLoadedListener listener) {
-        database.child("categorias").child(categoryId)
+        if (currentUserId == null) {
+            listener.onError("Usuario no autenticado");
+            return;
+        }
+
+        database.child("categorias").child(currentUserId).child(categoryId)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {
@@ -333,6 +364,31 @@ public class DatabaseHelper {
                             list.add(category);
                         }
                         listener.onCategoriesLoaded(list);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        listener.onError(error.getMessage());
+                    }
+                });
+    }
+
+    // Verificar si el usuario ya tiene categorías creadas
+    public void checkUserHasCategories(OnOperationCompleteListener listener) {
+        if (currentUserId == null) {
+            listener.onError("Usuario no autenticado");
+            return;
+        }
+
+        database.child("categorias").child(currentUserId)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        if (snapshot.exists() && snapshot.getChildrenCount() > 0) {
+                            listener.onSuccess();
+                        } else {
+                            listener.onError("NO_CATEGORIES");
+                        }
                     }
 
                     @Override
@@ -432,7 +488,12 @@ public class DatabaseHelper {
 
     // ==================== CATEGORÍAS POR DEFECTO ====================
 
-    public void createDefaultCategories(OnOperationCompleteListener listener) {
+    public void createDefaultCategories(String userId, OnOperationCompleteListener listener) {
+        if (userId == null) {
+            listener.onError("Usuario no válido");
+            return;
+        }
+
         List<Category> defaultCategories = new ArrayList<>();
 
         defaultCategories.add(new Category("cat_001", "Alimentación", TIPO_GASTO_ID, "ic_alimentacion", "#FF5722"));
@@ -445,13 +506,208 @@ public class DatabaseHelper {
         defaultCategories.add(new Category("cat_008", "Freelance", TIPO_INGRESO_ID, "ic_documento", "#00BCD4"));
         defaultCategories.add(new Category("cat_009", "Inversiones", TIPO_INGRESO_ID, "ic_avion", "#3F51B5"));
 
-        DatabaseReference categoriesRef = database.child("categorias");
+        DatabaseReference categoriesRef = database.child("categorias").child(userId);
 
         for (Category category : defaultCategories) {
             categoriesRef.child(category.getId()).setValue(category);
         }
 
         listener.onSuccess();
-        Log.d(TAG, "Categorías por defecto creadas");
+        Log.d(TAG, "Categorías por defecto creadas para usuario: " + userId);
+    }
+
+    // Inicializar categorías si el usuario no tiene
+    public void initializeUserCategories(String userId, OnOperationCompleteListener listener) {
+        if (userId == null) {
+            listener.onError("Usuario no válido");
+            return;
+        }
+
+        final String tempUserId = currentUserId;
+        currentUserId = userId;
+
+        checkUserHasCategories(new OnOperationCompleteListener() {
+            @Override
+            public void onSuccess() {
+                currentUserId = tempUserId;
+                Log.d(TAG, "El usuario ya tiene categorías");
+                listener.onSuccess();
+            }
+
+            @Override
+            public void onError(String error) {
+                if ("NO_CATEGORIES".equals(error)) {
+                    createDefaultCategories(userId, new OnOperationCompleteListener() {
+                        @Override
+                        public void onSuccess() {
+                            currentUserId = tempUserId;
+                            Log.d(TAG, "Categorías creadas para nuevo usuario");
+                            listener.onSuccess();
+                        }
+
+                        @Override
+                        public void onError(String err) {
+                            currentUserId = tempUserId;
+                            listener.onError(err);
+                        }
+                    });
+                } else {
+                    currentUserId = tempUserId;
+                    listener.onError(error);
+                }
+            }
+        });
+    }
+
+    // ==================== GRÁFICOS ====================
+
+    public interface OnExpensesByCategoryLoadedListener {
+        void onExpensesLoaded(Map<String, Double> expensesByCategory);
+        void onError(String error);
+    }
+
+    public interface OnMonthlySummaryLoadedListener {
+        void onSummaryLoaded(List<MonthlySummary> summaries);
+        void onError(String error);
+    }
+
+    public static class MonthlySummary {
+        private int month;
+        private int year;
+        private double totalIngresos;
+        private double totalGastos;
+
+        public MonthlySummary(int month, int year, double totalIngresos, double totalGastos) {
+            this.month = month;
+            this.year = year;
+            this.totalIngresos = totalIngresos;
+            this.totalGastos = totalGastos;
+        }
+
+        public int getMonth() { return month; }
+        public int getYear() { return year; }
+        public double getTotalIngresos() { return totalIngresos; }
+        public double getTotalGastos() { return totalGastos; }
+    }
+
+    // Obtener gastos por categoría del mes actual
+    public void getExpensesByCategory(OnExpensesByCategoryLoadedListener listener) {
+        if (currentUserId == null) {
+            listener.onError("Usuario no autenticado");
+            return;
+        }
+
+        // Obtener mes actual
+        Calendar calendar = Calendar.getInstance();
+        int currentMonth = calendar.get(Calendar.MONTH);
+        int currentYear = calendar.get(Calendar.YEAR);
+
+        database.child("transacciones").child(currentUserId)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        Map<String, Double> expensesByCategory = new HashMap<>();
+
+                        for (DataSnapshot transactionSnapshot : snapshot.getChildren()) {
+                            Transaction transaction = transactionSnapshot.getValue(Transaction.class);
+                            if (transaction != null && transaction.getTipoId().equals(TIPO_GASTO_ID)) {
+                                Calendar transCal = Calendar.getInstance();
+                                transCal.setTimeInMillis(transaction.getFecha());
+
+                                int transMonth = transCal.get(Calendar.MONTH);
+                                int transYear = transCal.get(Calendar.YEAR);
+
+                                if (transMonth == currentMonth && transYear == currentYear) {
+                                    String categoryId = transaction.getCategoriaId();
+                                    double currentAmount = expensesByCategory.getOrDefault(categoryId, 0.0);
+                                    expensesByCategory.put(categoryId, currentAmount + transaction.getMonto());
+                                }
+                            }
+                        }
+                        listener.onExpensesLoaded(expensesByCategory);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        Log.e(TAG, "Error getting expenses by category: " + error.getMessage());
+                        listener.onError(error.getMessage());
+                    }
+                });
+    }
+
+    // Obtener resumen mensual de los últimos meses
+    public void getMonthlySummary(int months, OnMonthlySummaryLoadedListener listener) {
+        if (currentUserId == null) {
+            listener.onError("Usuario no autenticado");
+            return;
+        }
+
+        Calendar calendar = Calendar.getInstance();
+        List<MonthlySummary> summaries = new ArrayList<>();
+
+        // Primero obtener todas las transacciones
+        database.child("transacciones").child(currentUserId)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        // Inicializar los últimos N meses con 0
+                        for (int i = 0; i < months; i++) {
+                            Calendar cal = Calendar.getInstance();
+                            cal.add(Calendar.MONTH, -i);
+                            summaries.add(new MonthlySummary(
+                                    cal.get(Calendar.MONTH),
+                                    cal.get(Calendar.YEAR),
+                                    0.0,
+                                    0.0
+                            ));
+                        }
+
+                        // Procesar transacciones
+                        for (DataSnapshot transactionSnapshot : snapshot.getChildren()) {
+                            Transaction transaction = transactionSnapshot.getValue(Transaction.class);
+                            if (transaction != null) {
+                                Calendar transCal = Calendar.getInstance();
+                                transCal.setTimeInMillis(transaction.getFecha());
+                                int transMonth = transCal.get(Calendar.MONTH);
+                                int transYear = transCal.get(Calendar.YEAR);
+
+                                // Buscar el mes correspondiente en la lista
+                                for (MonthlySummary summary : summaries) {
+                                    if (summary.getMonth() == transMonth && summary.getYear() == transYear) {
+                                        if (transaction.getTipoId().equals(TIPO_INGRESO_ID)) {
+                                            // Crear nuevo summary con ingreso actualizado
+                                            int index = summaries.indexOf(summary);
+                                            summaries.set(index, new MonthlySummary(
+                                                    transMonth,
+                                                    transYear,
+                                                    summary.getTotalIngresos() + transaction.getMonto(),
+                                                    summary.getTotalGastos()
+                                            ));
+                                        } else {
+                                            int index = summaries.indexOf(summary);
+                                            summaries.set(index, new MonthlySummary(
+                                                    transMonth,
+                                                    transYear,
+                                                    summary.getTotalIngresos(),
+                                                    summary.getTotalGastos() + transaction.getMonto()
+                                            ));
+                                        }
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        // Invertir para que el mes más antiguo esté primero
+                        Collections.reverse(summaries);
+                        listener.onSummaryLoaded(summaries);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        Log.e(TAG, "Error getting monthly summary: " + error.getMessage());
+                        listener.onError(error.getMessage());
+                    }
+                });
     }
 }

@@ -18,26 +18,33 @@
     <string name="login_link">Iniciar sesión</string>
     <string name="or_continue">o continúa con</string>
     <string name="register_google">Registrarme con Google</string>
+    <string name="dont_have_account">¿No tienes cuenta? </string>
+    <string name="sign_up">Regístrate</string>
+
+    <!-- Login Screen -->
+    <string name="iniciar_sesion">Iniciar Sesión</string>
+    <string name="correo_electronico">Correo electrónico</string>
+    <string name="tu_correo">tu@email.com</string>
 
     <!-- Dashboard -->
-    <string name="greeting">¡Hola, María!</string>
+    <string name="greeting">¡Hola!</string>
     <string name="month_year">Enero 2025</string>
     <string name="monthly_balance">Saldo mensual</string>
-    <string name="balance_amount">$2,450.00</string>
+    <string name="balance_amount">$0.00</string>
     <string name="income">Ingresos</string>
-    <string name="income_amount">+$3,200.00</string>
+    <string name="income_amount">+$0.00</string>
     <string name="expenses">Gastos</string>
-    <string name="expenses_amount">-$750.00</string>
+    <string name="expenses_amount">-$0.00</string>
     <string name="recent_transactions">Transacciones recientes</string>
     <string name="view_all">Ver todas</string>
     <string name="add_transaction">Agregar transacciones</string>
-    <string name="dashboard_greeting">¡Hola, María!</string>
+    <string name="dashboard_greeting">¡Hola!</string>
     <string name="dashboard_month">Enero 2025</string>
     <string name="user_profile">Perfil de usuario</string>
     <string name="income_label">Ingresos</string>
     <string name="expenses_label">Gastos</string>
     <string name="wallet_icon">Icono de billetera</string>
-    <string name="hola_maria">¡Hola, María!</string>
+    <string name="hola_maria">¡Hola!</string>
     <string name="fecha_ejemplo">Enero 2025</string>
     <string name="saldo_mensual">Saldo mensual</string>
     <string name="ingresos">Ingresos</string>
@@ -95,8 +102,12 @@
     <string name="nav_gastos">Gastos</string>
     <string name="menu_gastos">Gastos</string>
     <string name="nav_categorias">Categorías</string>
+    <string name="nav_historial">Historial</string>
+    <string name="nav_estadisticas">Estadísticas</string>
     <string name="expenses_title">Gastos</string>
     <string name="gastos_titulo">Gastos</string>
+    <string name="historial">Historial</string>
+    <string name="estadisticas">Estadísticas</string>
 
     <!-- Content Descriptions -->
     <string name="desc_alimentacion">Alimentación</string>
@@ -128,6 +139,184 @@
     <string name="desc_regalo">Regalo</string>
     <string name="desc_mas">Más opciones</string>
 
+    <!-- Estadísticas -->
+    <string name="gastos_por_categoria">Gastos por Categoría</string>
+    <string name="distribucion_gastos_mes">Distribución de tus gastos este mes</string>
+    <string name="ingresos_vs_gastos">Ingresos vs Gastos</string>
+    <string name="comparacion_ultimos_meses">Comparación de los últimos 6 meses</string>
+
+    <!-- Perfil / Settings -->
+    <string name="perfil">Perfil</string>
+    <string name="cerrar_sesion">Cerrar sesión</string>
+    <string name="ver_perfil">Ver perfil</string>
+    <string name="configuracion">Configuración</string>
+    <string name="privacidad">Privacidad</string>
+    <string name="politica_privacidad">Política de Privacidad</string>
+    <string name="version">Versión</string>
+    <string name="acerca_de">Acerca de</string>
+
+    <!-- Mensajes de Error -->
+    <string name="error_email_exists">Este email ya está registrado</string>
+    <string name="error_password_incorrect">Contraseña incorrecta</string>
+    <string name="error_email_not_registered">Email no registrado</string>
+    <string name="success_transaction">Transacción guardada</string>
+    <string name="success_category">Categoría creada</string>
+
     <!-- IMPORTANTE: Reemplaza esto con tu Web Client ID real del google-services.json -->
     <string name="default_web_client_id">1082538631659-oi036tr6lomq9q788bh3cdptpp6mrvno.apps.googleusercontent.com</string>
+
+    <!-- Mensajes de Validación - Perfil -->
+    <string name="error_empty_name">El nombre no puede estar vacío</string>
+    <string name="error_name_min_length">El nombre debe tener al menos 3 caracteres</string>
+    <string name="error_empty_username">El usuario no puede estar vacío</string>
+    <string name="error_username_min_length">El usuario debe tener al menos 4 caracteres</string>
+    <string name="error_no_changes">No hay cambios para guardar</string>
+    <string name="success_profile_updated">Perfil actualizado correctamente</string>
+    <string name="saving">Guardando…</string>
+    <string name="btn_save_changes">Guardar cambios</string>
+
+    <!-- Mensajes de Validación - Transacción -->
+    <string name="error_empty_description">Ingrese una descripción</string>
+    <string name="error_empty_amount">Ingrese un monto</string>
+    <string name="error_select_category">Seleccione una categoría</string>
+    <string name="error_amount_positive">El monto debe ser mayor a 0</string>
+    <string name="error_invalid_amount">Monto inválido</string>
+
+    <!-- Mensajes de Validación - Categoría -->
+    <string name="error_empty_category_name">Ingrese un nombre para la categoría</string>
+
+    <!-- Mensajes de Sesión -->
+    <string name="session_closed">Sesión cerrada</string>
+
+    <!-- Mensajes de Error Generales -->
+    <string name="error_user_not_found">Error: Usuario no encontrado</string>
+    <string name="error_loading_categories">Error cargando categorías: %1$s</string>
+    <string name="error_loading_transactions">Error cargando transacciones: %1$s</string>
+    <string name="error_generic">Error: %1$s</string>
+
+    <!-- Mensajes de Éxito -->
+    <string name="success_transaction_saved">Transacción guardada</string>
+    <string name="success_category_created">Categoría creada</string>
+    <string name="success_profile_update">✅ Perfil actualizado</string>
+    <string name="success_category_create">✅ Categoría creada</string>
+    <string name="success_transaction_create">✅ Transacción guardada</string>
+
+    <!-- Mensajes de Información -->
+    <string name="info_no_categories">No hay categorías creadas</string>
+    <string name="info_no_expenses">No hay gastos este mes</string>
+    <string name="info_no_data">No hay suficientes datos para mostrar</string>
+    <string name="info_create_categories_first">Crea categorías primero</string>
+    <string name="info_loading_categories">Cargando categorías…</string>
+    <string name="info_error_loading">Error al cargar</string>
+    <string name="info_no_data_chart">No hay suficientes datos para mostrar</string>
+
+    <!-- Cuenta -->
+    <string name="account_google">Cuenta con Google</string>
+    <string name="account_google_desc">Registrado con Google Sign-In</string>
+    <string name="account_email">Cuenta con email</string>
+    <string name="account_email_desc">Registrado con correo electrónico</string>
+
+    <!-- Feature - Foto de perfil -->
+    <string name="coming_soon_photo">Próximamente: Cambiar foto de perfil</string>
+
+    <!-- Gráficos -->
+    <string name="chart_income">Ingresos</string>
+    <string name="chart_expense">Gastos</string>
+    <string name="chart_no_category">Sin categoría</string>
+    <string name="chart_error_loading">Error al cargar gráfico: %1$s</string>
+
+    <!-- Categorías -->
+    <string name="info_no_expense_categories">No hay categorías de gasto</string>
+    <string name="info_no_income_categories">No hay categorías de ingreso</string>
+
+    <!-- Layout: activity_categorias.xml -->
+    <string name="header_gastos">Gastos</string>
+    <string name="header_ingresos">Ingresos</string>
+
+    <!-- Layout: activity_historial.xml -->
+    <string name="historial_title">Historial</string>
+    <string name="historial_subtitle">Revisa tus finanzas anteriores</string>
+
+    <!-- Layout: activity_expenses.xml -->
+    <string name="expenses_title_layout">Gastos</string>
+    <string name="expenses_subtitle">Gastos de %1$s</string>
+
+    <!-- Layout: activity_estadisticas.xml -->
+    <string name="estadisticas_title">Estadísticas</string>
+    <string name="chart_expenses_by_category">Gastos por Categoría</string>
+    <string name="chart_expenses_distribution">Distribución de tus gastos este mes</string>
+    <string name="chart_income_vs_expenses">Ingresos vs Gastos</string>
+    <string name="chart_months_comparison">Comparación de los últimos 6 meses</string>
+
+    <!-- Layout: activity_agregar_transaccion.xml -->
+    <string name="add_transaction_title">Agregar Transacción</string>
+    <string name="label_type">Tipo</string>
+    <string name="label_description">Descripción</string>
+    <string name="label_amount">Monto</string>
+    <string name="label_category">Categoría</string>
+    <string name="label_date">Fecha</string>
+
+    <!-- Layout: activity_agregar_categoria.xml -->
+    <string name="add_category_title">Agregar Categoría</string>
+    <string name="label_category_type">Tipo de Categoría</string>
+    <string name="label_category_name">Nombre de la categoría</string>
+    <string name="label_category_icon">Icono representativo</string>
+    <string name="label_category_color">Color de la categoría</string>
+
+    <!-- Layout: bottom_sheet_profile.xml -->
+    <string name="my_account">Mi cuenta</string>
+    <string name="view_profile">Ver perfil</string>
+    <string name="sign_out">Cerrar sesión</string>
+
+    <!-- Layout: item_categoria.xml -->
+    <string name="item_category_name">Comida</string>
+    <string name="item_category_type">Tipo: Gasto</string>
+
+    <!-- Layout: item_category_card.xml -->
+    <string name="item_category_card_name">Categoría</string>
+
+    <!-- Layout: activity_profile.xml -->
+    <string name="profile_name_placeholder">Nombre Usuario</string>
+    <string name="profile_email_placeholder">email@ejemplo.com</string>
+    <string name="personal_info">Información personal</string>
+    <string name="full_name_label">Nombre completo</string>
+    <string name="account_type">Tipo de cuenta</string>
+    <string name="profile_saved">Guardar cambios</string>
+
+    <!-- Layout: activity_main.xml (Login) -->
+    <string name="login_continue_with">o continúa con</string>
+    <string name="login_google">Iniciar sesión con Google</string>
+    <string name="login_no_account">¿No tienes cuenta? </string>
+    <string name="login_sign_up">Regístrate</string>
+
+    <!-- Layout: activity_home.xml (Placeholders dinámica) -->
+    <string name="placeholder_greeting">¡Hola, Usuario!</string>
+    <string name="placeholder_month_year">Octubre 2025</string>
+    <string name="placeholder_balance">$0,00</string>
+    <string name="placeholder_income">+$0,00</string>
+    <string name="placeholder_expense">-$0,00</string>
+
+    <!-- Content Descriptions -->
+    <string name="desc_profile_icon">Icono de perfil</string>
+
+    <!-- Layouts de Items (RecyclerView placeholders) -->
+    <string name="item_month_year">Octubre 2025</string>
+    <string name="item_month_balance">Saldo: $450,000</string>
+    <string name="item_incomes_label">Ingresos:</string>
+    <string name="item_income_amount">+$500,000</string>
+    <string name="item_expenses_label">Gastos:</string>
+    <string name="item_expense_amount">-$50,000</string>
+    <string name="desc_expand">Expandir</string>
+
+    <!--Hints -->
+    <string name="hint_name">Ingresa tu nombre</string>
+    <string name="hint_username">Ingresa tu usuario</string>
+    <string name="hint_email_register">tucorreo@ejemplo.com</string>
+    <string name="hint_password">Ingresa tu contraseña</string>
+    <string name="hint_full_name">Ingresa tu nombre completo</string>
+    <string name="hint_email_profile">Tu correo electrónico</string>
+    <string name="hint_category_name">Ej. Transporte, Comida</string>
+    <string name="hint_transaction_desc">Ej. Cena con amigos</string>
+    <string name="hint_amount">$ 0.00</string>
+    <string name="hint_date">mm/dd/yyyy</string>
 </resources>

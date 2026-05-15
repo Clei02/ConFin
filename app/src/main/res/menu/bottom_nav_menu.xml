@@ -11,11 +11,15 @@
         android:icon="@drawable/ic_list"
         android:title="Gastos" />
 
-    <!-- NUEVO: Historial -->
     <item
         android:id="@+id/nav_historial"
         android:icon="@drawable/ic_history"
         android:title="Historial" />
+
+    <item
+        android:id="@+id/nav_estadisticas"
+        android:icon="@drawable/ic_bar_chart"
+        android:title="Estadísticas" />
 
     <item
         android:id="@+id/nav_categorias"

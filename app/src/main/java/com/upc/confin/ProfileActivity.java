@@ -78,7 +78,7 @@ public class ProfileActivity extends AppCompatActivity {
         btnSaveChanges.setOnClickListener(v -> saveChanges());
         fabEditPhoto.setOnClickListener(v -> {
             Toast.makeText(this,
-                    "Próximamente: Cambiar foto de perfil",
+                    R.string.coming_soon_photo,
                     Toast.LENGTH_SHORT).show();
         });
     }
@@ -94,7 +94,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onUserNotFound() {
                 Toast.makeText(ProfileActivity.this,
-                        "Error: Usuario no encontrado",
+                        R.string.error_user_not_found,
                         Toast.LENGTH_SHORT).show();
                 finish();
             }
@@ -102,7 +102,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onError(String error) {
                 Toast.makeText(ProfileActivity.this,
-                        "Error: " + error,
+                        getString(R.string.error_generic, error),
                         Toast.LENGTH_SHORT).show();
             }
         });
@@ -123,8 +123,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         if (isGoogleAccount) {
             // Es cuenta de Google
-            tvAccountType.setText("Cuenta con Google");
-            tvAccountTypeDesc.setText("Registrado con Google Sign-In");
+            tvAccountType.setText(R.string.account_google);
+            tvAccountTypeDesc.setText(R.string.account_google_desc);
             ivAccountTypeIcon.setImageResource(R.drawable.ic_google);
 
             // Cargar foto de Google si existe
@@ -135,8 +135,8 @@ public class ProfileActivity extends AppCompatActivity {
             }
         } else {
             // Es cuenta con email
-            tvAccountType.setText("Cuenta con email");
-            tvAccountTypeDesc.setText("Registrado con correo electrónico");
+            tvAccountType.setText(R.string.account_email);
+            tvAccountTypeDesc.setText(R.string.account_email_desc);
             ivAccountTypeIcon.setImageResource(R.drawable.ic_email);
             ivProfilePhoto.setImageResource(R.drawable.ic_person);
         }
@@ -157,35 +157,35 @@ public class ProfileActivity extends AppCompatActivity {
 
         // Validaciones
         if (newName.isEmpty()) {
-            Toast.makeText(this, "El nombre no puede estar vacío", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.error_empty_name, Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (newName.length() < 3) {
-            Toast.makeText(this, "El nombre debe tener al menos 3 caracteres", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.error_name_min_length, Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (newUsername.isEmpty()) {
-            Toast.makeText(this, "El usuario no puede estar vacío", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.error_empty_username, Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (newUsername.length() < 4) {
-            Toast.makeText(this, "El usuario debe tener al menos 4 caracteres", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.error_username_min_length, Toast.LENGTH_SHORT).show();
             return;
         }
 
         // Verificar si hubo cambios
         if (newName.equals(currentUser.getNombre()) &&
                 newUsername.equals(currentUser.getUsername())) {
-            Toast.makeText(this, "No hay cambios para guardar", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.error_no_changes, Toast.LENGTH_SHORT).show();
             return;
         }
 
         // Deshabilitar botón mientras se guarda
         btnSaveChanges.setEnabled(false);
-        btnSaveChanges.setText("Guardando...");
+        btnSaveChanges.setText(R.string.saving);
 
         // Actualizar usuario
         currentUser.setNombre(newName);
@@ -201,14 +201,14 @@ public class ProfileActivity extends AppCompatActivity {
                         .apply();
 
                 Toast.makeText(ProfileActivity.this,
-                        "✅ Perfil actualizado",
+                        R.string.success_profile_update,
                         Toast.LENGTH_SHORT).show();
 
                 // Actualizar UI
                 tvProfileName.setText(newName);
 
                 btnSaveChanges.setEnabled(true);
-                btnSaveChanges.setText("Guardar cambios");
+                btnSaveChanges.setText(R.string.btn_save_changes);
 
                 // 👇 ESTO ES LO NUEVO - Notificar a HomeActivity
                 setResult(RESULT_OK);
@@ -217,11 +217,11 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onError(String error) {
                 Toast.makeText(ProfileActivity.this,
-                        "❌ Error: " + error,
+                        getString(R.string.error_generic, error),
                         Toast.LENGTH_SHORT).show();
 
                 btnSaveChanges.setEnabled(true);
-                btnSaveChanges.setText("Guardar cambios");
+                btnSaveChanges.setText(R.string.btn_save_changes);
             }
         });
     }

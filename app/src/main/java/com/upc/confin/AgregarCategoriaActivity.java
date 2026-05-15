@@ -137,7 +137,7 @@ public class AgregarCategoriaActivity extends AppCompatActivity {
     private void guardarCategoria() {
         String nombre = etNombreCategoria.getText().toString().trim();
         if (nombre.isEmpty()) {
-            Toast.makeText(this, "Ingrese un nombre para la categoría", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.error_empty_category_name, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -158,7 +158,7 @@ public class AgregarCategoriaActivity extends AppCompatActivity {
             @Override
             public void onSuccess() {
                 Toast.makeText(AgregarCategoriaActivity.this,
-                        "✅ Categoría creada",
+                        R.string.success_category_create,
                         Toast.LENGTH_SHORT).show();
                 finish();
             }
@@ -166,7 +166,7 @@ public class AgregarCategoriaActivity extends AppCompatActivity {
             @Override
             public void onError(String error) {
                 Toast.makeText(AgregarCategoriaActivity.this,
-                        "❌ Error: " + error,
+                        getString(R.string.error_generic, error),
                         Toast.LENGTH_SHORT).show();
             }
         });

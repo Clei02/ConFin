@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:background="@android:color/white">
+    android:background="@color/background_white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Crea tu cuenta"
+            android:text="@string/create_account"
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="@android:color/black"
@@ -37,7 +37,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Controla tus finanzas"
+            android:text="@string/control_finances"
             android:textSize="14sp"
             android:textColor="@color/dark_gray"
             android:layout_marginBottom="32dp" />
@@ -46,7 +46,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nombre"
+            android:text="@string/full_name"
             android:textSize="14sp"
             android:textStyle="bold"
             android:textColor="@android:color/black"
@@ -57,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:hint="Ingresa tu nombre"
+            android:hint="@string/hint_name"
             app:boxStrokeColor="@color/input_box_stroke"
             app:hintTextColor="@color/hint_gray">
 
@@ -74,7 +74,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Usuario"
+            android:text="@string/username"
             android:textSize="14sp"
             android:textStyle="bold"
             android:textColor="@android:color/black"
@@ -85,7 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:hint="Ingresa tu usuario"
+            android:hint="@string/hint_username"
             app:boxStrokeColor="@color/input_box_stroke"
             app:hintTextColor="@color/hint_gray"
             app:endIconMode="custom"
@@ -105,7 +105,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Correo electrónico"
+            android:text="@string/correo_electronico"
             android:textSize="14sp"
             android:textStyle="bold"
             android:textColor="@android:color/black"
@@ -116,7 +116,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:hint="tucorreo@ejemplo.com"
+            android:hint="@string/hint_email_register"
             app:boxStrokeColor="@color/input_box_stroke"
             app:hintTextColor="@color/hint_gray"
             app:endIconMode="custom"
@@ -136,7 +136,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Contraseña"
+            android:text="@string/password"
             android:textSize="14sp"
             android:textStyle="bold"
             android:textColor="@android:color/black"
@@ -147,7 +147,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:hint="Ingresa tu contraseña"
+            android:hint="@string/hint_password"
             app:boxStrokeColor="@color/input_box_stroke"
             app:hintTextColor="@color/hint_gray"
             app:endIconMode="password_toggle"
@@ -166,7 +166,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ingresa de nuevo tu contraseña"
+            android:text="@string/confirm_password"
             android:textSize="14sp"
             android:textStyle="bold"
             android:textColor="@android:color/black"
@@ -177,7 +177,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:hint="Ingresa tu contraseña"
+            android:hint="@string/hint_password"
             app:boxStrokeColor="@color/input_box_stroke"
             app:hintTextColor="@color/hint_gray"
             app:endIconMode="password_toggle"
@@ -197,7 +197,7 @@
             android:id="@+id/btnRegister"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="Registrarme"
+            android:text="@string/register_btn"
             android:textColor="@android:color/white"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -217,7 +217,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="¿Ya tienes una cuenta? "
+                android:text="@string/already_have_account"
                 android:textSize="14sp"
                 android:textColor="@color/dark_gray" />
 
@@ -225,7 +225,7 @@
                 android:id="@+id/tvLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Iniciar sesión"
+                android:text="@string/login_link"
                 android:textSize="14sp"
                 android:textColor="@color/primary"
                 android:textStyle="bold"
@@ -251,7 +251,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="o continúa con"
+                android:text="@string/login_continue_with"
                 android:textSize="12sp"
                 android:textColor="@color/dark_gray"
                 android:paddingStart="8dp"
@@ -270,7 +270,7 @@
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="Registrarme con Google"
+            android:text="@string/register_google"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             android:textAllCaps="false"

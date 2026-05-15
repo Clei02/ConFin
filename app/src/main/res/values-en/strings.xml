@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Name -->
+    <string name="app_name">ConFin</string>
+    <string name="app_logo">ConFin Logo</string>
+
+    <!-- Login y Registro -->
+    <string name="create_account">Create your account</string>
+    <string name="control_finances">Control your finances</string>
+    <string name="full_name">Name</string>
+    <string name="enter_name">Enter your name</string>
+    <string name="username">Username</string>
+    <string name="enter_username">Enter your username</string>
+    <string name="password">Password</string>
+    <string name="enter_password">Enter your password</string>
+    <string name="confirm_password">Confirm your password</string>
+    <string name="register_btn">Register</string>
+    <string name="already_have_account">Already have an account?</string>
+    <string name="login_link">Log in</string>
+    <string name="or_continue">or continue with</string>
+    <string name="register_google">Register with Google</string>
+    <string name="dont_have_account">Don\'t have an account? </string>
+    <string name="sign_up">Sign up</string>
+
+    <!-- Dashboard -->
+    <string name="greeting">Hello, User!</string>
+    <string name="month_year">January 2025</string>
+    <string name="monthly_balance">Monthly Balance</string>
+    <string name="balance_amount">$0.00</string>
+    <string name="income">Income</string>
+    <string name="income_amount">+$0.00</string>
+    <string name="expenses">Expenses</string>
+    <string name="expenses_amount">-$0.00</string>
+    <string name="recent_transactions">Recent Transactions</string>
+    <string name="view_all">View all</string>
+    <string name="add_transaction">Add Transaction</string>
+
+    <!-- Agregar Transacción -->
+    <string name="tipo_prompt">Select type</string>
+    <string name="categoria_prompt">Select category</string>
+
+    <!-- Arrays para Spinners -->
+    <string-array name="tipo_array">
+        <item>Expense</item>
+        <item>Income</item>
+    </string-array>
+
+    <!-- Categorías -->
+    <string name="menu_categorias">Categories</string>
+    <string name="categorias">Categories</string>
+    <string name="titulo_categorias">Categories</string>
+
+    <!-- Bottom Navigation -->
+    <string name="nav_resumen">Summary</string>
+    <string name="menu_resumen">Summary</string>
+    <string name="nav_gastos">Expenses</string>
+    <string name="menu_gastos">Expenses</string>
+    <string name="nav_categorias">Categories</string>
+    <string name="nav_historial">History</string>
+    <string name="nav_estadisticas">Statistics</string>
+    <string name="expenses_title">Expenses</string>
+    <string name="gastos_titulo">Expenses</string>
+    <string name="historial">History</string>
+
+    <!-- Agregar Categoría -->
+    <string name="titulo_agregar_categoria">Add Category</string>
+    <string name="label_nombre_categoria">Category name</string>
+    <string name="hint_nombre_categoria">e.g. Transport, Food</string>
+    <string name="label_icono_representativo">Representative icon</string>
+    <string name="label_color_categoria">Category color</string>
+    <string name="btn_cancelar">Cancel</string>
+    <string name="btn_guardar">Save</string>
+
+    <!-- Historial -->
+    <string name="ver_todas">View all</string>
+    <string name="saldo_mensual">Monthly Balance</string>
+    <string name="transacciones_recientes">Recent Transactions</string>
+
+    <!-- Estadísticas -->
+    <string name="estadisticas">Statistics</string>
+    <string name="gastos_por_categoria">Expenses by Category</string>
+    <string name="distribucion_gastos_mes">Distribution of your expenses this month</string>
+    <string name="ingresos_vs_gastos">Income vs Expenses</string>
+    <string name="comparacion_ultimos_meses">Comparison of the last 6 months</string>
+
+    <!-- Content Descriptions -->
+    <string name="desc_expandir">Expand</string>
+    <string name="desc_ver_mas">View more</string>
+    <string name="desc_agregar_categoria">Add category</string>
+    <string name="desc_volver">Go back</string>
+    <string name="category_icon">Category icon</string>
+    <string name="wallet_icon">Wallet icon</string>
+
+    <!-- Mensajes -->
+    <string name="error_email_exists">This email is already registered</string>
+    <string name="error_password_incorrect">Incorrect password</string>
+    <string name="error_email_not_registered">Email not registered</string>
+    <string name="success_transaction">Transaction saved</string>
+    <string name="success_category">Category created</string>
+
+    <!-- Configuración / Perfil -->
+    <string name="perfil">Profile</string>
+    <string name="cerrar_sesion">Log out</string>
+    <string name="ver_perfil">View profile</string>
+    <string name="configuracion">Settings</string>
+    <string name="privacidad">Privacy</string>
+    <string name="politica_privacidad">Privacy Policy</string>
+    <string name="version">Version</string>
+    <string name="acerca_de">About</string>
+
+    <!-- Login Screen -->
+    <string name="iniciar_sesion">Log in</string>
+    <string name="correo_electronico">Email</string>
+    <string name="tu_correo">your@email.com</string>
+
+    <!-- Mensajes de Validación - Perfil -->
+    <string name="error_empty_name">Name cannot be empty</string>
+    <string name="error_name_min_length">Name must have at least 3 characters</string>
+    <string name="error_empty_username">Username cannot be empty</string>
+    <string name="error_username_min_length">Username must have at least 4 characters</string>
+    <string name="error_no_changes">No changes to save</string>
+    <string name="success_profile_updated">Profile updated successfully</string>
+    <string name="saving">Saving…</string>
+    <string name="btn_save_changes">Save changes</string>
+
+    <!-- Mensajes de Validación - Transacción -->
+    <string name="error_empty_description">Enter a description</string>
+    <string name="error_empty_amount">Enter an amount</string>
+    <string name="error_select_category">Select a category</string>
+    <string name="error_amount_positive">Amount must be greater than 0</string>
+    <string name="error_invalid_amount">Invalid amount</string>
+
+    <!-- Mensajes de Validación - Categoría -->
+    <string name="error_empty_category_name">Enter a name for the category</string>
+
+    <!-- Mensajes de Sesión -->
+    <string name="session_closed">Session closed</string>
+
+    <!-- Mensajes de Error Generales -->
+    <string name="error_user_not_found">Error: User not found</string>
+    <string name="error_loading_categories">Error loading categories: %1$s</string>
+    <string name="error_loading_transactions">Error loading transactions: %1$s</string>
+    <string name="error_generic">Error: %1$s</string>
+
+    <!-- Mensajes de Éxito -->
+    <string name="success_transaction_saved">Transaction saved</string>
+    <string name="success_category_created">Category created</string>
+    <string name="success_profile_update">✅ Profile updated</string>
+    <string name="success_category_create">✅ Category created</string>
+    <string name="success_transaction_create">✅ Transaction saved</string>
+
+    <!-- Mensajes de Información -->
+    <string name="info_no_categories">No categories created</string>
+    <string name="info_no_expenses">No expenses this month</string>
+    <string name="info_no_data">Not enough data to display</string>
+    <string name="info_create_categories_first">Create categories first</string>
+    <string name="info_loading_categories">Loading categories…</string>
+    <string name="info_error_loading">Error loading</string>
+    <string name="info_no_data_chart">Not enough data to display</string>
+
+    <!-- Cuenta -->
+    <string name="account_google">Google Account</string>
+    <string name="account_google_desc">Registered with Google Sign-In</string>
+    <string name="account_email">Email Account</string>
+    <string name="account_email_desc">Registered with email</string>
+
+    <!-- Feature - Foto de perfil -->
+    <string name="coming_soon_photo">Coming soon: Change profile photo</string>
+
+    <!-- Gráficos -->
+    <string name="chart_income">Income</string>
+    <string name="chart_expense">Expenses</string>
+    <string name="chart_no_category">No category</string>
+    <string name="chart_error_loading">Error loading chart: %1$s</string>
+
+    <!-- Categorías -->
+    <string name="info_no_expense_categories">No expense categories</string>
+    <string name="info_no_income_categories">No income categories</string>
+
+    <!-- Layout: activity_categorias.xml -->
+    <string name="header_gastos">Expenses</string>
+    <string name="header_ingresos">Income</string>
+
+    <!-- Layout: activity_historial.xml -->
+    <string name="historial_title">History</string>
+    <string name="historial_subtitle">Check your previous finances</string>
+
+    <!-- Layout: activity_expenses.xml -->
+    <string name="expenses_title_layout">Expenses</string>
+    <string name="expenses_subtitle">Expenses of %1$s</string>
+
+    <!-- Layout: activity_estadisticas.xml -->
+    <string name="estadisticas_title">Statistics</string>
+    <string name="chart_expenses_by_category">Expenses by Category</string>
+    <string name="chart_expenses_distribution">Distribution of your expenses this month</string>
+    <string name="chart_income_vs_expenses">Income vs Expenses</string>
+    <string name="chart_months_comparison">Comparison of the last 6 months</string>
+
+    <!-- Layout: activity_agregar_transaccion.xml -->
+    <string name="add_transaction_title">Add Transaction</string>
+    <string name="label_type">Type</string>
+    <string name="label_description">Description</string>
+    <string name="label_amount">Amount</string>
+    <string name="label_category">Category</string>
+    <string name="label_date">Date</string>
+
+    <!-- Layout: activity_agregar_categoria.xml -->
+    <string name="add_category_title">Add Category</string>
+    <string name="label_category_type">Category Type</string>
+    <string name="label_category_name">Category name</string>
+    <string name="label_category_icon">Representative icon</string>
+    <string name="label_category_color">Category color</string>
+
+    <!-- Layout: bottom_sheet_profile.xml -->
+    <string name="my_account">My account</string>
+    <string name="view_profile">View profile</string>
+    <string name="sign_out">Log out</string>
+
+    <!-- Layout: item_categoria.xml -->
+    <string name="item_category_name">Food</string>
+    <string name="item_category_type">Type: Expense</string>
+
+    <!-- Layout: item_category_card.xml -->
+    <string name="item_category_card_name">Category</string>
+
+    <!-- Layout: activity_profile.xml -->
+    <string name="profile_name_placeholder">User Name</string>
+    <string name="profile_email_placeholder">email@example.com</string>
+    <string name="personal_info">Personal information</string>
+    <string name="full_name_label">Full name</string>
+    <string name="account_type">Account type</string>
+    <string name="profile_saved">Save changes</string>
+
+    <!-- Layout: activity_main.xml (Login) -->
+    <string name="login_continue_with">or continue with</string>
+    <string name="login_google">Log in with Google</string>
+    <string name="login_no_account">Don\'t have an account? </string>
+    <string name="login_sign_up">Sign up</string>
+
+    <!-- Layout: activity_home.xml (Placeholders dinámica) -->
+    <string name="placeholder_greeting">Hello, User!</string>
+    <string name="placeholder_month_year">October 2025</string>
+    <string name="placeholder_balance">$0.00</string>
+    <string name="placeholder_income">+$0.00</string>
+    <string name="placeholder_expense">-$0.00</string>
+
+    <!-- Content Descriptions -->
+    <string name="desc_profile_icon">Profile icon</string>
+
+    <!-- Layouts de Items (RecyclerView placeholders) -->
+    <string name="item_month_year">October 2025</string>
+    <string name="item_month_balance">Balance: $450,000</string>
+    <string name="item_incomes_label">Income:</string>
+    <string name="item_income_amount">+$500,000</string>
+    <string name="item_expenses_label">Expenses:</string>
+    <string name="item_expense_amount">-$50,000</string>
+    <string name="desc_expand">Expand</string>
+
+    <!--Hints -->
+    <string name="hint_name">Enter your name</string>
+    <string name="hint_username">Enter your username</string>
+    <string name="hint_email_register">your@email.com</string>
+    <string name="hint_password">Enter your password</string>
+    <string name="hint_full_name">Enter your full name</string>
+    <string name="hint_email_profile">Your email</string>
+    <string name="hint_category_name">e.g. Transport, Food</string>
+    <string name="hint_transaction_desc">e.g. Dinner with friends</string>
+    <string name="hint_amount">$ 0.00</string>
+    <string name="hint_date">mm/dd/yyyy</string>
+</resources>

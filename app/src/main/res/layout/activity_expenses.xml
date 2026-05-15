@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
+    android:background="@color/background_white"
     tools:context=".ExpensesActivity">
 
     <!-- Header con mes actual -->
@@ -14,22 +14,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="20dp"
+        android:background="@color/background_white">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Gastos"
-            android:textColor="@color/text_primary_dark"
-            android:textSize="24sp"
+            android:text="@string/expenses_title_layout"
+            android:textColor="@color/charcoal_brown"
+            android:textSize="26sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_month_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Gastos de Octubre 2025"
-            android:textColor="@color/text_secondary_dark"
+            android:text="@string/expenses_subtitle"
+            android:textColor="@color/gray"
             android:textSize="14sp"
             android:layout_marginTop="4dp" />
 
@@ -38,7 +39,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/background_gray_light" />
+        android:background="@color/divider_light" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_expenses"
@@ -54,6 +55,10 @@
         android:id="@+id/bottom_navigation_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/background_white"
+        app:elevation="8dp"
+        app:itemIconTint="@color/bottom_nav_white"
+        app:itemTextColor="@color/bottom_nav_white"
         app:menu="@menu/bottom_nav_menu" />
 
 </LinearLayout>

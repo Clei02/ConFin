@@ -167,7 +167,7 @@ public class HomeActivity extends AppCompatActivity {
         textGreeting.setText("¡Hola, " + userName + "!");
 
         // Opcional: Mostrar mensaje
-        Toast.makeText(this, "Perfil actualizado correctamente", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.success_profile_updated, Toast.LENGTH_SHORT).show();
     }
 
     private void signOut() {
@@ -179,7 +179,7 @@ public class HomeActivity extends AppCompatActivity {
         dbHelper.setCurrentUserId(null);
 
         // Mostrar mensaje
-        Toast.makeText(this, "Sesión cerrada", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.session_closed, Toast.LENGTH_SHORT).show();
 
         // Ir al login
         Intent intent = new Intent(HomeActivity.this, MainActivity.class);
@@ -201,7 +201,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onError(String error) {
                 Toast.makeText(HomeActivity.this,
-                        "Error cargando categorías: " + error,
+                        getString(R.string.error_loading_categories, error),
                         Toast.LENGTH_SHORT).show();
             }
         });
@@ -268,7 +268,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onError(String error) {
                 Toast.makeText(HomeActivity.this,
-                        "Error cargando transacciones: " + error,
+                        getString(R.string.error_loading_transactions, error),
                         Toast.LENGTH_SHORT).show();
             }
         });
@@ -310,6 +310,10 @@ public class HomeActivity extends AppCompatActivity {
                 return true;
             } else if (itemId == R.id.nav_categorias) {
                 startActivity(new Intent(this, CategoriasActivity.class));
+                finish();
+                return true;
+            } else if (itemId == R.id.nav_estadisticas) {
+                startActivity(new Intent(this, EstadisticasActivity.class));
                 finish();
                 return true;
             }

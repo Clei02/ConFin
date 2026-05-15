@@ -178,13 +178,26 @@ public class RegisterActivity extends AppCompatActivity {
                 new DatabaseHelper.OnOperationCompleteListener() {
                     @Override
                     public void onSuccess() {
-                        showSuccess("✅ Cuenta creada exitosamente");
+                        // Crear categorías por defecto para el nuevo usuario
+                        dbHelper.initializeUserCategories(userId, new DatabaseHelper.OnOperationCompleteListener() {
+                            @Override
+                            public void onSuccess() {
+                                showSuccess("✅ Cuenta creada exitosamente");
 
-                        // Guardar sesión
-                        saveUserSession(userId, name, email);
+                                // Guardar sesión
+                                saveUserSession(userId, name, email);
 
-                        // Ir al Dashboard
-                        navigateToDashboard();
+                                // Ir al Dashboard
+                                navigateToDashboard();
+                            }
+
+                            @Override
+                            public void onError(String error) {
+                                showSuccess("✅ Cuenta creada exitosamente");
+                                saveUserSession(userId, name, email);
+                                navigateToDashboard();
+                            }
+                        });
                     }
 
                     @Override
@@ -248,9 +261,22 @@ public class RegisterActivity extends AppCompatActivity {
                                             new DatabaseHelper.OnOperationCompleteListener() {
                                                 @Override
                                                 public void onSuccess() {
-                                                    showSuccess("✅ Registro exitoso con Google");
-                                                    saveUserSession(userId, name, email);
-                                                    navigateToDashboard();
+                                                    // Crear categorías por defecto
+                                                    dbHelper.initializeUserCategories(userId, new DatabaseHelper.OnOperationCompleteListener() {
+                                                        @Override
+                                                        public void onSuccess() {
+                                                            showSuccess("✅ Registro exitoso con Google");
+                                                            saveUserSession(userId, name, email);
+                                                            navigateToDashboard();
+                                                        }
+
+                                                        @Override
+                                                        public void onError(String error) {
+                                                            showSuccess("✅ Registro exitoso con Google");
+                                                            saveUserSession(userId, name, email);
+                                                            navigateToDashboard();
+                                                        }
+                                                    });
                                                 }
 
                                                 @Override

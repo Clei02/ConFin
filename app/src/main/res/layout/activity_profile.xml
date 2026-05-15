@@ -73,7 +73,7 @@
                     android:id="@+id/tvProfileName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nombre Usuario"
+                    android:text="@string/profile_name_placeholder"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     android:textColor="@android:color/white" />
@@ -82,7 +82,7 @@
                     android:id="@+id/tvProfileEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="email@ejemplo.com"
+                    android:text="@string/profile_email_placeholder"
                     android:textSize="14sp"
                     android:textColor="@color/text_secondary_light"
                     android:layout_marginTop="4dp" />
@@ -100,7 +100,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Información personal"
+                android:text="@string/personal_info"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@android:color/black"
@@ -110,7 +110,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nombre completo"
+                android:text="@string/full_name_label"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:textColor="@android:color/black"
@@ -121,7 +121,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:hint="Ingresa tu nombre completo"
+                android:hint="@string/hint_full_name"
                 app:boxStrokeColor="@color/input_box_stroke"
                 app:hintTextColor="@color/hint_gray"
                 app:endIconMode="clear_text">
@@ -139,7 +139,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Usuario"
+                android:text="@string/username"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:textColor="@android:color/black"
@@ -150,7 +150,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:hint="Ingresa tu usuario"
+                android:hint="@string/hint_username"
                 app:boxStrokeColor="@color/input_box_stroke"
                 app:hintTextColor="@color/hint_gray"
                 app:endIconMode="clear_text">
@@ -168,7 +168,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Correo electrónico"
+                android:text="@string/correo_electronico"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:textColor="@android:color/black"
@@ -179,7 +179,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
-                android:hint="Tu correo electrónico"
+                android:hint="@string/hint_email_profile"
                 app:boxStrokeColor="@color/input_box_stroke"
                 app:hintTextColor="@color/hint_gray"
                 app:endIconMode="custom"
@@ -201,7 +201,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tipo de cuenta"
+                android:text="@string/account_type"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@android:color/black"
@@ -240,7 +240,7 @@
                             android:id="@+id/tvAccountType"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Cuenta con email"
+                            android:text="@string/account_email"
                             android:textSize="16sp"
                             android:textStyle="bold"
                             android:textColor="@android:color/black" />
@@ -249,7 +249,7 @@
                             android:id="@+id/tvAccountTypeDesc"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Registrado con correo electrónico"
+                            android:text="@string/account_email_desc"
                             android:textSize="12sp"
                             android:textColor="@color/dark_gray"
                             android:layout_marginTop="4dp" />
@@ -262,7 +262,7 @@
                 android:id="@+id/btnSaveChanges"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:text="Guardar cambios"
+                android:text="@string/profile_saved"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
                 android:textStyle="bold"

@@ -260,6 +260,10 @@ public class HistorialActivity extends AppCompatActivity {
                 startActivity(new Intent(this, CategoriasActivity.class));
                 finish();
                 return true;
+            } else if (itemId == R.id.nav_estadisticas) {
+                startActivity(new Intent(this, EstadisticasActivity.class));
+                finish();
+                return true;
             }
             return false;
         });

@@ -28,7 +28,7 @@
                 android:id="@+id/tvMonthYear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Octubre 2025"
+                android:text="@string/item_month_year"
                 android:textSize="18sp"
                 android:textColor="#000000"
                 android:textStyle="bold" />
@@ -37,7 +37,7 @@
                 android:id="@+id/tvMonthSummary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Saldo: $450,000"
+                android:text="@string/item_month_balance"
                 android:textSize="14sp"
                 android:textColor="#4CAF50"
                 android:layout_marginTop="4dp" />
@@ -50,7 +50,7 @@
             android:layout_height="24dp"
             android:src="@drawable/ic_expand_more"
             android:rotation="0"
-            android:contentDescription="Expandir" />
+            android:contentDescription="@string/desc_expand" />
 
     </LinearLayout>
 
@@ -77,7 +77,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Ingresos:"
+                android:text="@string/item_incomes_label"
                 android:textSize="14sp"
                 android:textColor="#666666" />
 
@@ -85,7 +85,7 @@
                 android:id="@+id/tvIngresos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="+$500,000"
+                android:text="@string/item_income_amount"
                 android:textSize="14sp"
                 android:textColor="#4CAF50"
                 android:textStyle="bold" />
@@ -103,7 +103,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Gastos:"
+                android:text="@string/item_expenses_label"
                 android:textSize="14sp"
                 android:textColor="#666666" />
 
@@ -111,7 +111,7 @@
                 android:id="@+id/tvGastos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="-$50,000"
+                android:text="@string/item_expense_amount"
                 android:textSize="14sp"
                 android:textColor="#000000"
                 android:textStyle="bold" />

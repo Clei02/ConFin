@@ -4,25 +4,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#FFFFFF">
+    android:background="@color/background_white">
 
     <!-- Header -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp"
-        android:background="#FFFFFF">
+        android:padding="20dp"
+        android:background="@color/background_white">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/titulo_categorias"
-            android:textSize="24sp"
-            android:textColor="#000000"
+            android:textSize="26sp"
+            android:textColor="@color/charcoal_brown"
             android:textStyle="bold" />
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider_light" />
 
     <!-- Lista de categorías -->
     <ScrollView
@@ -62,15 +67,16 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:src="@drawable/ic_list"
-                        android:contentDescription="Gastos" />
+                        app:tint="@color/red_main"
+                        android:contentDescription="@string/header_gastos" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Gastos"
+                        android:text="@string/header_gastos"
                         android:textSize="18sp"
-                        android:textColor="#000000"
+                        android:textColor="@color/charcoal_brown"
                         android:textStyle="bold"
                         android:layout_marginStart="16dp" />
 
@@ -79,6 +85,7 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:src="@drawable/ic_expand_more"
+                        app:tint="@color/charcoal_brown"
                         android:rotation="180"
                         android:contentDescription="@string/desc_expandir" />
 
@@ -94,7 +101,6 @@
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
                     android:paddingBottom="16dp">
-                    <!-- Las categorías de GASTO se cargarán aquí dinámicamente -->
                 </LinearLayout>
 
             </LinearLayout>
@@ -123,15 +129,16 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:src="@drawable/ic_chart"
-                        android:contentDescription="Ingresos" />
+                        app:tint="@color/forest_green"
+                        android:contentDescription="@string/header_ingresos" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Ingresos"
+                        android:text="@string/header_ingresos"
                         android:textSize="18sp"
-                        android:textColor="#000000"
+                        android:textColor="@color/charcoal_brown"
                         android:textStyle="bold"
                         android:layout_marginStart="16dp" />
 
@@ -140,6 +147,7 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:src="@drawable/ic_expand_more"
+                        app:tint="@color/charcoal_brown"
                         android:rotation="180"
                         android:contentDescription="@string/desc_expandir" />
 
@@ -155,7 +163,6 @@
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
                     android:paddingBottom="16dp">
-                    <!-- Las categorías de INGRESO se cargarán aquí dinámicamente -->
                 </LinearLayout>
 
             </LinearLayout>
@@ -173,14 +180,18 @@
         android:layout_margin="16dp"
         android:src="@drawable/ic_add"
         android:contentDescription="@string/desc_agregar_categoria"
-        app:backgroundTint="#4A4A4A"
-        app:tint="#FFFFFF" />
+        app:backgroundTint="@color/ocean_blue"
+        app:tint="@color/white" />
 
     <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/background_white"
+        app:elevation="8dp"
+        app:itemIconTint="@color/bottom_nav_white"
+        app:itemTextColor="@color/bottom_nav_white"
         app:menu="@menu/bottom_nav_menu" />
 
 </LinearLayout>

@@ -102,6 +102,10 @@ public class CategoriasActivity extends AppCompatActivity {
                 return true;
             } else if (itemId == R.id.nav_categorias) {
                 return true;
+            } else if (itemId == R.id.nav_estadisticas) {
+                startActivity(new Intent(this, EstadisticasActivity.class));
+                finish();
+                return true;
             }
             return false;
         });
@@ -130,7 +134,7 @@ public class CategoriasActivity extends AppCompatActivity {
             @Override
             public void onError(String error) {
                 Toast.makeText(CategoriasActivity.this,
-                        "Error cargando categorías: " + error,
+                        getString(R.string.error_loading_categories, error),
                         Toast.LENGTH_SHORT).show();
             }
         });
@@ -143,7 +147,7 @@ public class CategoriasActivity extends AppCompatActivity {
 
         // Agregar categorías de GASTO
         if (categoriasGasto.isEmpty()) {
-            contentGastos.addView(createEmptyMessage("No hay categorías de gasto"));
+            contentGastos.addView(createEmptyMessage(getString(R.string.info_no_expense_categories)));
         } else {
             for (Category category : categoriasGasto) {
                 contentGastos.addView(createCategoryCard(category));
@@ -152,7 +156,7 @@ public class CategoriasActivity extends AppCompatActivity {
 
         // Agregar categorías de INGRESO
         if (categoriasIngreso.isEmpty()) {
-            contentIngresos.addView(createEmptyMessage("No hay categorías de ingreso"));
+            contentIngresos.addView(createEmptyMessage(getString(R.string.info_no_income_categories)));
         } else {
             for (Category category : categoriasIngreso) {
                 contentIngresos.addView(createCategoryCard(category));

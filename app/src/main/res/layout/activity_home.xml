@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/background_white"
     tools:context=".HomeActivity">
 
     <LinearLayout
@@ -13,10 +13,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <!-- Header simple -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:padding="20dp"
+            android:background="@color/background_white">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -25,140 +27,168 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true">
 
-                <!-- CAMBIO: Agregar ID text_greeting -->
                 <TextView
                     android:id="@+id/text_greeting"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="¡Hola, Usuario!"
-                    android:textColor="@color/text_primary_dark"
-                    android:textSize="24sp"
+                    android:text="@string/placeholder_greeting"
+                    android:textColor="@color/charcoal_brown"
+                    android:textSize="26sp"
                     android:textStyle="bold" />
 
-                <!-- CAMBIO: Agregar ID text_month_year -->
                 <TextView
                     android:id="@+id/text_month_year"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Octubre 2025"
-                    android:textColor="@color/text_secondary_dark"
-                    android:textSize="14sp" />
+                    android:text="@string/placeholder_month_year"
+                    android:textColor="@color/gray"
+                    android:textSize="14sp"
+                    android:layout_marginTop="4dp" />
             </LinearLayout>
 
             <ImageView
                 android:id="@+id/iv_profile_icon"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
                 android:layout_alignParentEnd="true"
                 android:src="@drawable/ic_person"
-                android:contentDescription="Icono de perfil"
-                app:tint="@color/text_primary_dark"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/desc_profile_icon"
+                app:tint="@color/charcoal_brown"
+                android:background="@drawable/background_circle_white"
+                android:padding="10dp"
                 android:clickable="true"
                 android:focusable="true" />
         </RelativeLayout>
 
+        <!-- Card de saldo - minimalista con gradiente sutil -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            app:cardBackgroundColor="@color/card_dark_background"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="8dp">
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="8dp"
+            app:cardBackgroundColor="@color/ocean_blue"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="6dp"
+            app:strokeWidth="0dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="20dp">
+                android:padding="24dp">
 
                 <TextView
                     android:id="@+id/label_saldo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/saldo_mensual"
-                    android:textColor="@color/text_secondary_light"
+                    android:textColor="@color/white"
+                    android:textSize="13sp"
+                    android:alpha="0.9"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_wallet"
-                    app:tint="@color/text_secondary_light"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:contentDescription="Icono de billetera" />
 
                 <TextView
                     android:id="@+id/text_saldo_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="$0,00"
-                    android:textColor="@color/text_primary_light"
-                    android:textSize="34sp"
+                    android:text="@string/placeholder_balance"
+                    android:textColor="@color/white"
+                    android:textSize="36sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/label_saldo" />
 
-                <TextView
-                    android:id="@+id/label_ingresos"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <!-- Separador -->
+                <View
+                    android:id="@+id/divider_balance"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
                     android:layout_marginTop="20dp"
-                    android:text="@string/ingresos"
-                    android:textColor="@color/text_secondary_light"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:background="@color/white"
+                    android:alpha="0.2"
                     app:layout_constraintTop_toBottomOf="@id/text_saldo_amount" />
 
-                <TextView
-                    android:id="@+id/text_ingresos_amount"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="+$0,00"
-                    android:textColor="@color/green_income"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/label_ingresos" />
+                    android:layout_marginTop="16dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@id/divider_balance">
 
-                <TextView
-                    android:id="@+id/label_gastos"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/gastos"
-                    android:textColor="@color/text_secondary_light"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/text_saldo_amount" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/text_gastos_amount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="-$0,00"
-                    android:textColor="@color/text_primary_light"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/label_gastos" />
+                        <TextView
+                            android:id="@+id/label_ingresos"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/ingresos"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:alpha="0.8" />
+
+                        <TextView
+                            android:id="@+id/text_ingresos_amount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/placeholder_income"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:layout_marginTop="4dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="end">
+
+                        <TextView
+                            android:id="@+id/label_gastos"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/gastos"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:alpha="0.8" />
+
+                        <TextView
+                            android:id="@+id/text_gastos_amount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/placeholder_expense"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:layout_marginTop="4dp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 
+        <!-- Sección transacciones recientes -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
+            android:layout_marginTop="28dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
             android:layout_marginBottom="8dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/transacciones_recientes"
-                android:textColor="@color/text_primary_dark"
+                android:textColor="@color/charcoal_brown"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -167,39 +197,50 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:text="@string/ver_todas"
-                android:textColor="@color/design_default_color_primary" />
+                android:textColor="@color/ocean_blue"
+                android:textSize="14sp" />
         </RelativeLayout>
 
+        <!-- Lista de transacciones -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_transactions"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:clipToPadding="false"
             tools:listitem="@layout/item_transaction"
             tools:itemCount="4"/>
 
+        <!-- Bottom Navigation -->
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            android:background="@color/background_white"
+            app:elevation="8dp"
+            app:itemIconTint="@color/bottom_nav_white"
+            app:itemTextColor="@color/bottom_nav_white"
             app:menu="@menu/bottom_nav_menu" />
 
     </LinearLayout>
 
+    <!-- FAB Floating -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="Agregar nueva transacción"
         android:src="@drawable/ic_add"
-        app:tint="@android:color/white"
-        android:backgroundTint="@color/card_dark_background"
+        app:tint="@color/white"
+        android:backgroundTint="@color/ocean_blue"
         app:borderWidth="0dp"
+        app:fabSize="normal"
+        app:elevation="6dp"
         android:layout_gravity="bottom|end"
-        android:layout_marginBottom="80dp"
-        android:layout_marginEnd="24dp" />
+        android:layout_marginBottom="72dp"
+        android:layout_marginEnd="20dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

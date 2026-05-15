@@ -4,37 +4,77 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <!-- ==================== NUEVA PALETA DE COLORES ==================== -->
+    <!-- Ash Grey - Fondos alternativos -->
+    <color name="ash_grey">#C9CEBD</color>
+    <color name="ash_grey_light">#D8DCC9</color>
+    <color name="ash_grey_dark">#B8BCAB</color>
+
+    <!-- Charcoal Brown - Texto primario -->
+    <color name="charcoal_brown">#343633</color>
+    <color name="charcoal_brown_light">#4A4947</color>
+
+    <!-- Red - Gastos, errores -->
+    <color name="red_main">#FF101F</color>
+    <color name="red_light">#FF4D5A</color>
+    <color name="red_dark">#CC0E18</color>
+
+    <!-- Forest Green - Ingresos, éxitos -->
+    <color name="forest_green">#379634</color>
+    <color name="forest_green_light">#4DB044</color>
+    <color name="forest_green_dark">#2B7829</color>
+
+    <!-- Ocean Blue - Botones principales -->
+    <color name="ocean_blue">#2E86AB</color>
+    <color name="ocean_blue_light">#4BA3C7</color>
+    <color name="ocean_blue_dark">#1E6685</color>
+
+    <!-- ==================== FONDO BLANCO MINIMALISTA ==================== -->
+    <!-- Fondo principal -->
+    <color name="background_white">#FFFFFF</color>
+    <color name="background_white_secondary">#FAFAFA</color>
+    <color name="background_card">#FFFFFF</color>
+
+    <!-- Sombras y elevaciones -->
+    <color name="shadow_light">#1A000000</color>
+    <color name="card_shadow">#0D000000</color>
+
+    <!-- Divisores muy sutiles -->
+    <color name="divider_light">#EEEEEE</color>
+    <color name="border_light">#E0E0E0</color>
+
+    <!-- ==================== COLORES LEGACY (mantenidos) ==================== -->
     <!-- Colores de la marca / Primary -->
-    <color name="primary">#2196F3</color>
-    <color name="primary_dark">#1976D2</color>
-    <color name="primary_light">#BBDEFB</color>
-    <color name="accent">#FF5722</color>
+    <color name="primary">#2E86AB</color>
+    <color name="primary_dark">#1E6685</color>
+    <color name="primary_light">#4BA3C7</color>
+    <color name="accent">#2E86AB</color>
 
     <!-- Colores de texto -->
-    <color name="text_primary_dark">#DE000000</color>
-    <color name="text_secondary">#8A000000</color>
-    <color name="text_secondary_dark">#8A000000</color>
+    <color name="text_primary_dark">#343633</color>
+    <color name="text_secondary">#757575</color>
+    <color name="text_secondary_dark">#343633</color>
     <color name="text_primary_light">#FFFFFFFF</color>
     <color name="text_secondary_light">#B3FFFFFF</color>
 
-    <!-- Colores de fondo -->
-    <color name="background_gray">#F5F5F5</color>
-    <color name="background_gray_light">#D3D3D3</color>
-    <color name="card_dark_background">#212121</color>
-    <color name="light_gray">#FFF5F5F5</color>
+    <!-- Colores de fondo legacy -->
+    <color name="background_gray">#FAFAFA</color>
+    <color name="background_gray_light">#F5F5F5</color>
+    <color name="card_dark_background">#343633</color>
+    <color name="light_gray">#F5F5F5</color>
 
     <!-- Colores de bordes y divisores -->
-    <color name="border_gray">#FFE0E0E0</color>
-    <color name="divider">#E0E0E0</color>
-    <color name="gray">#999999</color>
-    <color name="dark_gray">#666666</color>
-    <color name="hint_gray">#FFAAAAAA</color>
+    <color name="border_gray">#E0E0E0</color>
+    <color name="divider">#EEEEEE</color>
+    <color name="gray">#9E9E9E</color>
+    <color name="dark_gray">#616161</color>
+    <color name="hint_gray">#BDBDBD</color>
 
     <!-- Colores de inputs -->
-    <color name="input_box_stroke">#CCCCCC</color>
-    <color name="input_box_stroke_focused">#000000</color>
+    <color name="input_box_stroke">#E0E0E0</color>
+    <color name="input_box_stroke_focused">#2E86AB</color>
 
     <!-- Colores financieros -->
-    <color name="green_income">#4CAF50</color>
-    <color name="red_expense">#F44336</color>
+    <color name="green_income">#379634</color>
+    <color name="red_expense">#FF101F</color>
 </resources>

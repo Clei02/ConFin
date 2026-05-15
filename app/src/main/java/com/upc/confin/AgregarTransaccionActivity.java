@@ -116,7 +116,7 @@ public class AgregarTransaccionActivity extends AppCompatActivity {
             @Override
             public void onError(String error) {
                 Toast.makeText(AgregarTransaccionActivity.this,
-                        "Error cargando categorías: " + error,
+                        getString(R.string.error_loading_categories, error),
                         Toast.LENGTH_SHORT).show();
             }
         });
@@ -209,17 +209,17 @@ public class AgregarTransaccionActivity extends AppCompatActivity {
         int categoriaPosition = spinnerCategoria.getSelectedItemPosition();
 
         if (descripcion.isEmpty()) {
-            Toast.makeText(this, "Ingrese una descripción", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.error_empty_description, Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (montoStr.isEmpty()) {
-            Toast.makeText(this, "Ingrese un monto", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.error_empty_amount, Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (categoriaPosition == 0) {
-            Toast.makeText(this, "Seleccione una categoría", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.error_select_category, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -227,11 +227,11 @@ public class AgregarTransaccionActivity extends AppCompatActivity {
         try {
             monto = Double.parseDouble(montoStr);
             if (monto <= 0) {
-                Toast.makeText(this, "El monto debe ser mayor a 0", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.error_amount_positive, Toast.LENGTH_SHORT).show();
                 return;
             }
         } catch (NumberFormatException e) {
-            Toast.makeText(this, "Monto inválido", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.error_invalid_amount, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -254,7 +254,7 @@ public class AgregarTransaccionActivity extends AppCompatActivity {
             @Override
             public void onSuccess() {
                 Toast.makeText(AgregarTransaccionActivity.this,
-                        "✅ Transacción guardada",
+                        R.string.success_transaction_create,
                         Toast.LENGTH_SHORT).show();
                 finish();
             }
@@ -262,7 +262,7 @@ public class AgregarTransaccionActivity extends AppCompatActivity {
             @Override
             public void onError(String error) {
                 Toast.makeText(AgregarTransaccionActivity.this,
-                        "❌ Error: " + error,
+                        getString(R.string.error_generic, error),
                         Toast.LENGTH_SHORT).show();
             }
         });

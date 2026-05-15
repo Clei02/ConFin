@@ -5,27 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:background="@android:color/white">
+    android:background="@color/background_white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="24dp">
+        android:paddingTop="60dp"
+        android:paddingBottom="40dp">
 
         <!-- Logo de la aplicación -->
         <ImageView
             android:id="@+id/ivLogo"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginTop="40dp"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
             android:background="@drawable/logo_background"
             android:contentDescription="@string/app_logo"
-            android:padding="16dp"
+            android:padding="20dp"
             android:src="@drawable/ic_wallet"
+            app:tint="@color/ocean_blue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -35,10 +33,10 @@
             android:id="@+id/tvAppName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="ConFin"
-            android:textColor="@android:color/black"
-            android:textSize="28sp"
+            android:layout_marginTop="20dp"
+            android:text="@string/app_name"
+            android:textColor="@color/charcoal_brown"
+            android:textSize="32sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -50,40 +48,49 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Controla tus finanzas"
-            android:textColor="#666666"
-            android:textSize="14sp"
+            android:text="@string/control_finances"
+            android:textColor="@color/gray"
+            android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvAppName" />
 
-        <!-- Label Correo electrónico (CAMBIO AQUÍ) -->
+        <!-- Label Correo electrónico -->
         <TextView
             android:id="@+id/tvUsuarioLabel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="Correo electrónico"
-            android:textColor="@android:color/black"
+            android:layout_marginTop="48dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:text="@string/correo_electronico"
+            android:textColor="@color/charcoal_brown"
             android:textSize="14sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvSubtitle" />
 
-        <!-- Campo de entrada de Email (CAMBIO AQUÍ) -->
+        <!-- Campo de entrada de Email -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilUsuario"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="tucorreo@ejemplo.com"
-            android:textColorHint="#999999"
-            app:boxStrokeColor="#CCCCCC"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:hint="@string/hint_email_register"
+            android:textColorHint="@color/hint_gray"
+            app:boxStrokeColor="@color/input_box_stroke"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusBottomEnd="12dp"
             app:endIconDrawable="@drawable/ic_email"
             app:endIconMode="custom"
-            app:endIconTint="#999999"
-            app:hintTextColor="#999999"
+            app:endIconTint="@color/gray"
+            app:hintTextColor="@color/gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvUsuarioLabel">
@@ -94,8 +101,8 @@
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
-                android:textColor="@android:color/black"
-                android:textSize="14sp" />
+                android:textColor="@color/charcoal_brown"
+                android:textSize="15sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Label Contraseña -->
@@ -103,10 +110,13 @@
             android:id="@+id/tvContraseñaLabel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Contraseña"
-            android:textColor="@android:color/black"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:text="@string/password"
+            android:textColor="@color/charcoal_brown"
             android:textSize="14sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tilUsuario" />
@@ -118,12 +128,18 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="Ingresa tu contraseña"
-            android:textColorHint="#999999"
-            app:boxStrokeColor="#CCCCCC"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:hint="@string/hint_password"
+            android:textColorHint="@color/hint_gray"
+            app:boxStrokeColor="@color/input_box_stroke"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusBottomEnd="12dp"
             app:endIconMode="password_toggle"
-            app:endIconTint="#999999"
-            app:hintTextColor="#999999"
+            app:endIconTint="@color/gray"
+            app:hintTextColor="@color/gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvContraseñaLabel">
@@ -134,8 +150,8 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:maxLines="1"
-                android:textColor="@android:color/black"
-                android:textSize="14sp" />
+                android:textColor="@color/charcoal_brown"
+                android:textSize="15sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Botón Iniciar Sesión -->
@@ -143,13 +159,16 @@
             android:id="@+id/btnIniciarSesion"
             android:layout_width="0dp"
             android:layout_height="56dp"
-            android:layout_marginTop="24dp"
-            android:text="Iniciar Sesión"
-            android:textColor="@android:color/white"
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:text="@string/iniciar_sesion"
+            android:textColor="@color/white"
             android:textSize="16sp"
             android:textAllCaps="false"
-            app:backgroundTint="@android:color/black"
-            app:cornerRadius="8dp"
+            app:backgroundTint="@color/ocean_blue"
+            app:cornerRadius="12dp"
+            app:elevation="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tilContraseña" />
@@ -159,10 +178,10 @@
             android:id="@+id/tvSeparador"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="o continúa con"
-            android:textColor="#999999"
-            android:textSize="12sp"
+            android:layout_marginTop="28dp"
+            android:text="@string/login_continue_with"
+            android:textColor="@color/hint_gray"
+            android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btnIniciarSesion" />
@@ -174,16 +193,18 @@
             android:layout_width="0dp"
             android:layout_height="56dp"
             android:layout_marginTop="20dp"
-            android:text="Iniciar sesión con Google"
-            android:textColor="@android:color/black"
-            android:textSize="14sp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:text="@string/login_google"
+            android:textColor="@color/charcoal_brown"
+            android:textSize="15sp"
             android:textAllCaps="false"
-            app:cornerRadius="8dp"
+            app:cornerRadius="12dp"
             app:icon="@drawable/ic_google"
             app:iconGravity="textStart"
-            app:iconPadding="8dp"
+            app:iconPadding="12dp"
             app:iconTint="@null"
-            app:strokeColor="#DDDDDD"
+            app:strokeColor="@color/border_light"
             app:strokeWidth="1dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -194,11 +215,9 @@
             android:id="@+id/llRegistro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginTop="32dp"
             android:gravity="center"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btnGoogleSignIn">
@@ -206,18 +225,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="¿No tienes cuenta? "
-                android:textColor="#666666"
-                android:textSize="14sp" />
+                android:text="@string/login_no_account"
+                android:textColor="@color/gray"
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/tvRegistro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Regístrate"
-                android:textColor="#2196F3"
+                android:text="@string/login_sign_up"
+                android:textColor="@color/ocean_blue"
                 android:textStyle="bold"
-                android:textSize="14sp" />
+                android:textSize="15sp" />
 
         </LinearLayout>
 
